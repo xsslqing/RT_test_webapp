@@ -111,6 +111,18 @@ RESPONSIVE_CSS = """
     border-color: #4CAF50 !important;
     color: white !important;
 }
+
+/* ── 选项间距（避免选项挤在一起） ── */
+div[data-testid="stCheckbox"],
+div[data-testid="stRadio"] > div[role="radiogroup"] > label {
+    padding: 6px 0 !important;
+    min-height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+div[data-testid="stRadio"] > div[role="radiogroup"] > label > div:first-child {
+    margin-top: 0 !important;
+}
 </style>
 """
 
@@ -309,6 +321,7 @@ def page_practice(username, bank_name, filtered):
     wrong = um.load_wrong_cached(username)
     is_wrong_bank = (bank_name == "错题库")
     show_wrong_first = st.checkbox("优先显示错题", value=False, disabled=is_wrong_bank)
+    unanswered_only = st.checkbox("🔍 漏刷模式（仅显示未答题）", value=False)
 
     if not is_wrong_bank and show_wrong_first:
         bank_prefix = f"{bank_name}:"
@@ -320,6 +333,22 @@ def page_practice(username, bank_name, filtered):
             st.info("当前筛选条件下没有错题，显示全部题目。")
     else:
         pool = filtered
+
+    # 漏刷模式：仅显示未答题
+    if unanswered_only:
+        practice = um.load_practice_cached(username)
+        answered = practice.get("answered", {})
+        answered_ids = set()
+        for q_key in answered:
+            if q_key.startswith(f"{bank_name}:"):
+                try:
+                    answered_ids.add(int(q_key.split(":")[1]))
+                except (ValueError, IndexError):
+                    pass
+        pool = [q for q in pool if q["id"] not in answered_ids]
+        if not pool:
+            st.success("🎉 当前筛选条件下所有题目都已作答！")
+            return
 
     if not pool:
         st.warning("当前筛选条件下没有题目。")
@@ -405,17 +434,44 @@ def page_practice(username, bank_name, filtered):
                 st.session_state.seq_idx = target - 1
                 st.rerun()
     with prog_col:
-        st.caption(f"进度：{st.session_state.seq_idx + 1} / {len(pool)}")
+        # 统计已答题数
+        practice = um.load_practice_cached(username)
+        answered = practice.get("answered", {})
+        answered_in_pool = sum(1 for q in pool if f"{bank_name}:{q['id']}" in answered)
+        st.caption(f"进度：{st.session_state.seq_idx + 1} / {len(pool)} | 已答 {answered_in_pool}")
 
-    if st.button("💾 保存位置", key="save_pos", use_container_width=True):
-        um.save_practice_position(
-            username, bank_name,
-            st.session_state.get("sel_part", "全部"),
-            st.session_state.get("sel_qtype", "全部"),
-            st.session_state.seq_idx,
-        )
-        st.session_state._nav_count = 0
-        st.success("位置已保存")
+    # 答题进度网格
+    with st.expander(f"📋 答题进度（已答 {answered_in_pool}/{len(pool)}）", expanded=False):
+        def _prac_nav(idx):
+            st.session_state.seq_idx = idx
+
+        for row_start in range(0, len(pool), 10):
+            cols = st.columns(min(10, len(pool) - row_start))
+            for i, col in enumerate(cols):
+                idx = row_start + i
+                if idx >= len(pool):
+                    break
+                q = pool[idx]
+                q_key = f"{bank_name}:{q['id']}"
+                is_current = idx == st.session_state.get("seq_idx", 0)
+                is_answered = q_key in answered
+                label = f"•{idx + 1}" if is_current else str(idx + 1)
+                btn_key = f"pnav_{idx}"
+                if is_current:
+                    btn_type = "primary"
+                elif is_answered:
+                    btn_type = "primary"
+                else:
+                    btn_type = "secondary"
+                help_text = f"第{idx+1}题"
+                if is_current:
+                    help_text += "（当前）"
+                elif is_answered:
+                    help_text += "（已答）"
+                else:
+                    help_text += "（未答）"
+                col.button(label, key=btn_key, type=btn_type,
+                          help=help_text, on_click=_prac_nav, args=(idx,))
 
 
 # ══════════════════════════════════════════════════════════
@@ -993,6 +1049,19 @@ def _render_controls(username, is_admin=False):
     page = st.selectbox("功能切换", pages,
                         index=pages.index(st.session_state.page) if st.session_state.page in pages else 0)
     st.session_state.page = page
+
+    # 保存记录按钮（仅在顺序刷题页面显示，紧跟功能菜单下方）
+    if page == "顺序刷题":
+        if st.button("💾 保存记录", key="save_pos", use_container_width=True):
+            um.save_practice_position(
+                username,
+                st.session_state.get("bank_name", "放疗综合题库"),
+                st.session_state.get("sel_part", "全部"),
+                st.session_state.get("sel_qtype", "全部"),
+                st.session_state.get("seq_idx", 0),
+            )
+            st.session_state._nav_count = 0
+            st.success("记录已保存")
 
     filtered = None
 
