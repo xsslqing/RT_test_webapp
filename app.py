@@ -1052,7 +1052,7 @@ def _render_controls(username, is_admin=False):
 
     # 保存记录按钮（仅在顺序刷题页面显示，紧跟功能菜单下方）
     if page == "顺序刷题":
-        if st.button("💾 保存记录", key="save_pos", use_container_width=True):
+        if st.button("💾 刷题、考试记得保存记录再退出！！！", key="save_pos", use_container_width=True):
             um.save_practice_position(
                 username,
                 st.session_state.get("bank_name", "放疗综合题库"),
