@@ -425,7 +425,7 @@ def page_practice(username, bank_name, filtered):
 
     q = pool[st.session_state.seq_idx]
     q_key = f"{bank_name}:{q['id']}"
-    pfx = f"prac_{q['id']}"
+    pfx = f"prac_{bank_name}_{q['id']}"
     render_bank = q.get("_orig_bank", bank_name)
 
     type_label = "单选题" if q["type"] == "single" else "多选题"
@@ -643,7 +643,8 @@ def _run_exam(username):
     # 显示题目
     current_idx = st.session_state.exam_current
     bank_name, q = exam_qs[current_idx]
-    q_key = f"exam_{q['id']}"
+    q_key = f"exam_{bank_name}_{q['id']}"
+    ans_key = (bank_name, q["id"])
 
     type_label = "单选题" if q["type"] == "single" else "多选题"
     part_label = PART_SHORT.get(q["part"], q["part"])
@@ -653,14 +654,14 @@ def _run_exam(username):
     render_stem_images(q["stem"], bank_name=bank_name)
 
     if submitted:
-        user_ans = st.session_state.exam_answers.get(q["id"], [])
+        user_ans = st.session_state.exam_answers.get(ans_key, [])
         render_options(q, q_key, disabled=True, user_answer=user_ans, bank_name=bank_name)
         show_result_feedback(q, user_ans, q["answer"], q_key, bank_name)
     else:
-        prev_ans = st.session_state.exam_answers.get(q["id"])
+        prev_ans = st.session_state.exam_answers.get(ans_key)
         user_ans = render_options(q, q_key, disabled=False, user_answer=prev_ans, bank_name=bank_name)
         if user_ans:
-            st.session_state.exam_answers[q["id"]] = user_ans
+            st.session_state.exam_answers[ans_key] = user_ans
 
     # 纠错备注（使用与刷题一致的 q_key，共享纠错数据）
     correction_key = f"{bank_name}:{q['id']}"
@@ -715,7 +716,8 @@ def _submit_exam(username):
     now_str = um._now()
 
     for bank_name, q in exam_qs:
-        user_ans = answers.get(q["id"], [])
+        ans_key = (bank_name, q["id"])
+        user_ans = answers.get(ans_key, [])
         user_ans_str = ",".join(sorted(user_ans)) if user_ans else ""
         correct_ans = q["answer"]
         correct_set = set(correct_ans.split(","))
@@ -1096,7 +1098,7 @@ def page_admin(username):
 def _render_exam_card():
     """在主内容区渲染答题卡（折叠式），用于替代原来侧边栏中的答题卡。"""
     exam_qs = st.session_state.exam_questions
-    answered_count = sum(1 for _, eq in exam_qs if eq["id"] in st.session_state.exam_answers)
+    answered_count = sum(1 for bank_name, eq in exam_qs if (bank_name, eq["id"]) in st.session_state.exam_answers)
     current_num = st.session_state.get("exam_current", 0) + 1
 
     with st.expander(f"📋 答题卡（已答 {answered_count}/{len(exam_qs)}）📍 当前第 {current_num} 题", expanded=False):
@@ -1111,9 +1113,9 @@ def _render_exam_card():
                 idx = row_start + i
                 if idx >= len(exam_qs):
                     break
-                _, eq = exam_qs[idx]
+                bank_name, eq = exam_qs[idx]
                 is_current = idx == st.session_state.get("exam_current", 0)
-                is_answered = eq["id"] in st.session_state.exam_answers
+                is_answered = (bank_name, eq["id"]) in st.session_state.exam_answers
                 label = f"•{idx + 1}" if is_current else str(idx + 1)
                 btn_key = f"nav_exam_{idx}"
                 btn_type = "primary" if (is_answered or is_current) else "secondary"
