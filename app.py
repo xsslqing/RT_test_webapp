@@ -272,6 +272,28 @@ def _get_wrong_questions(username):
     return result
 
 
+def _get_answered_ids(username: str, bank_name: str) -> set:
+    """返回指定题库中已回答的题目 ID 集合。"""
+    practice = um.load_practice_cached(username)
+    answered = practice.get("answered", {})
+    answered_ids = set()
+    prefix = f"{bank_name}:"
+    for q_key in answered:
+        if q_key.startswith(prefix):
+            try:
+                answered_ids.add(int(q_key.split(":")[1]))
+            except (ValueError, IndexError):
+                pass
+    return answered_ids
+
+
+def _sort_unanswered_first(questions: list, answered_ids: set) -> list:
+    """稳定排序：未回答的题目排前面，已回答的排后面，各自保持原始顺序。"""
+    unanswered = [q for q in questions if q["id"] not in answered_ids]
+    answered = [q for q in questions if q["id"] in answered_ids]
+    return unanswered + answered
+
+
 # ══════════════════════════════════════════════════════════
 # 登录 / 注册页面
 # ══════════════════════════════════════════════════════════
@@ -367,19 +389,15 @@ def page_practice(username, bank_name, filtered):
 
     # 漏刷模式：仅显示未答题
     if unanswered_only:
-        practice = um.load_practice_cached(username)
-        answered = practice.get("answered", {})
-        answered_ids = set()
-        for q_key in answered:
-            if q_key.startswith(f"{bank_name}:"):
-                try:
-                    answered_ids.add(int(q_key.split(":")[1]))
-                except (ValueError, IndexError):
-                    pass
+        answered_ids = _get_answered_ids(username, bank_name)
         pool = [q for q in pool if q["id"] not in answered_ids]
         if not pool:
             st.success("🎉 当前筛选条件下所有题目都已作答！")
             return
+    else:
+        # 默认模式：未刷题优先排在前面（稳定排序，保持原始顺序）
+        answered_ids = _get_answered_ids(username, bank_name)
+        pool = _sort_unanswered_first(pool, answered_ids)
 
     if not pool:
         st.warning("当前筛选条件下没有题目。")
@@ -1190,7 +1208,7 @@ def main():
             st.session_state["bank_name"] = restored_bank
             st.session_state["bank_selector"] = restored_bank
             st.session_state.page = "顺序刷题"
-            st.session_state.seq_idx = pos.get("index", 0)
+            st.session_state.seq_idx = 0  # 未刷题优先排序后，index 0 即为第一道未刷题
             st.session_state.sel_part = restored_part
             st.session_state.sel_qtype = restored_qtype
             # 初始化筛选追踪值，避免首次运行时误判为筛选变化
@@ -1256,7 +1274,7 @@ def main():
         page = st.session_state.page
         bank_name = st.session_state.get("bank_name", "放疗综合题库")
 
-        # ── 检测筛选条件变化，恢复对应组合的刷题位置 ──
+        # ── 检测筛选条件变化，重置刷题位置 ──
         if page == "顺序刷题":
             cur_bank = bank_name
             cur_part = st.session_state.get("sel_part", "全部")
@@ -1266,11 +1284,8 @@ def main():
             prev_qtype = st.session_state.get("_filter_qtype")
 
             if (prev_bank, prev_part, prev_qtype) != (cur_bank, cur_part, cur_qtype):
-                # 筛选条件变化，加载该组合的保存位置
-                saved_idx = um.load_position_for_filter(username, cur_bank, cur_part, cur_qtype)
-                if saved_idx is not None and filtered:
-                    st.session_state.seq_idx = min(saved_idx, len(filtered) - 1)
-                elif filtered:
+                # 筛选条件变化，从未刷题开始（排序后 index 0 即为第一道未刷题）
+                if filtered:
                     st.session_state.seq_idx = 0
                 # 更新追踪值
                 st.session_state._filter_bank = cur_bank
