@@ -353,6 +353,32 @@ def page_login():
 def page_practice(username, bank_name, filtered):
     st.header("📖 顺序刷题")
 
+    def _build_pool():
+        """根据当前筛选条件构建题目列表（含未刷题优先排序）。"""
+        wrong = um.load_wrong_cached(username)
+        is_wrong_bank = (bank_name == "错题库")
+        show_wrong_first = st.session_state.get("_show_wrong_first", False)
+        unanswered_only = st.session_state.get("_unanswered_only", False)
+
+        if not is_wrong_bank and show_wrong_first:
+            bank_prefix = f"{bank_name}:"
+            wrong_in_bank = [k for k in wrong if k.startswith(bank_prefix)]
+            wrong_ids = {int(k.split(":")[1]) for k in wrong_in_bank}
+            pool = [q for q in filtered if q["id"] in wrong_ids]
+            if not pool:
+                pool = filtered
+        else:
+            pool = filtered
+
+        if unanswered_only:
+            answered_ids = _get_answered_ids(username, bank_name)
+            pool = [q for q in pool if q["id"] not in answered_ids]
+        else:
+            answered_ids = _get_answered_ids(username, bank_name)
+            pool = _sort_unanswered_first(pool, answered_ids)
+
+        return pool
+
     def _save_pos():
         """更新刷题位置到 session_state；每 10 次导航才写入数据库。"""
         st.session_state["_pos_bank"] = bank_name
@@ -373,31 +399,20 @@ def page_practice(username, bank_name, filtered):
 
     wrong = um.load_wrong_cached(username)
     is_wrong_bank = (bank_name == "错题库")
-    show_wrong_first = st.checkbox("优先显示错题", value=False, disabled=is_wrong_bank)
-    unanswered_only = st.checkbox("🔍 漏刷模式（仅显示未答题）", value=False)
+    show_wrong_first = st.checkbox("优先显示错题", value=False, disabled=is_wrong_bank, key="_show_wrong_first_cb")
+    unanswered_only = st.checkbox("🔍 漏刷模式（仅显示未答题）", value=False, key="_unanswered_only_cb")
+    # 同步到 session_state 供 _build_pool 使用
+    st.session_state._show_wrong_first = show_wrong_first
+    st.session_state._unanswered_only = unanswered_only
 
-    if not is_wrong_bank and show_wrong_first:
-        bank_prefix = f"{bank_name}:"
-        wrong_in_bank = [k for k in wrong if k.startswith(bank_prefix)]
-        wrong_ids = {int(k.split(":")[1]) for k in wrong_in_bank}
-        pool = [q for q in filtered if q["id"] in wrong_ids]
-        if not pool:
-            pool = filtered
-            st.info("当前筛选条件下没有错题，显示全部题目。")
-    else:
-        pool = filtered
+    pool = _build_pool()
 
-    # 漏刷模式：仅显示未答题
-    if unanswered_only:
-        answered_ids = _get_answered_ids(username, bank_name)
-        pool = [q for q in pool if q["id"] not in answered_ids]
-        if not pool:
-            st.success("🎉 当前筛选条件下所有题目都已作答！")
-            return
-    else:
-        # 默认模式：未刷题优先排在前面（稳定排序，保持原始顺序）
-        answered_ids = _get_answered_ids(username, bank_name)
-        pool = _sort_unanswered_first(pool, answered_ids)
+    if not is_wrong_bank and show_wrong_first and len(pool) == len(filtered):
+        st.info("当前筛选条件下没有错题，显示全部题目。")
+
+    if unanswered_only and not pool:
+        st.success("🎉 当前筛选条件下所有题目都已作答！")
+        return
 
     if not pool:
         st.warning("当前筛选条件下没有题目。")
@@ -415,7 +430,11 @@ def page_practice(username, bank_name, filtered):
 
     type_label = "单选题" if q["type"] == "single" else "多选题"
     part_label = PART_SHORT.get(q["part"], q["part"])
-    st.markdown(f"**第 {st.session_state.seq_idx + 1} / {len(pool)} 题** (题库编号: {q['id']}) | {part_label} | {type_label}")
+    # 统计已答题数
+    practice = um.load_practice_cached(username)
+    answered = practice.get("answered", {})
+    answered_in_pool = sum(1 for q_item in pool if f"{bank_name}:{q_item['id']}" in answered)
+    st.markdown(f"**题库编号: {q['id']}** | {part_label} | {type_label} | 进度: 已答 {answered_in_pool}/{len(pool)}")
 
     render_stem_images(q["stem"], bank_name=render_bank)
 
@@ -445,6 +464,10 @@ def page_practice(username, bank_name, filtered):
                     um.add_wrong(username, q_key, bank_name, q, user_ans_str, q["answer"])
                 else:
                     um.remove_wrong(username, q_key)
+                # 重新排序后，找到当前题目的新位置（保持在同一题查看反馈）
+                new_pool = _build_pool()
+                new_idx = next((i for i, q_item in enumerate(new_pool) if q_item["id"] == q["id"]), st.session_state.seq_idx)
+                st.session_state.seq_idx = new_idx
                 st.rerun()
             else:
                 st.warning("请先选择答案！")
@@ -496,11 +519,10 @@ def page_practice(username, bank_name, filtered):
                 st.session_state.seq_idx = target - 1
                 st.rerun()
     with prog_col:
-        # 统计已答题数
-        practice = um.load_practice_cached(username)
-        answered = practice.get("answered", {})
-        answered_in_pool = sum(1 for q in pool if f"{bank_name}:{q['id']}" in answered)
-        st.caption(f"进度：{st.session_state.seq_idx + 1} / {len(pool)} | 已答 {answered_in_pool}")
+        st.caption(f"当前第 {st.session_state.seq_idx + 1} 题 / 共 {len(pool)} 题")
+
+    # 统计已答题数（供进度网格使用）
+    answered_in_pool = sum(1 for q_item in pool if f"{bank_name}:{q_item['id']}" in answered)
 
     # 答题进度网格
     with st.expander(f"📋 答题进度（已答 {answered_in_pool}/{len(pool)}）", expanded=False):
