@@ -493,22 +493,15 @@ def page_practice(username, bank_name, filtered):
     # 纠错备注
     render_correction(q_key, username)
 
-    # 导航（两行布局，移动端友好）
+    # 导航（移动端友好）
     st.markdown("---")
-    nav1, nav2 = st.columns(2)
-    with nav1:
+    nav_left, nav_right = st.columns([1, 2])
+    with nav_left:
         if st.button("⬅️ 上一题", key="prac_prev", use_container_width=True):
             _save_pos()
             st.session_state.seq_idx = max(0, st.session_state.seq_idx - 1)
             st.rerun()
-    with nav2:
-        if st.button("下一题 ➡️", key="prac_next", use_container_width=True):
-            _save_pos()
-            st.session_state.seq_idx = min(len(pool) - 1, st.session_state.seq_idx + 1)
-            st.rerun()
-
-    jump_col, prog_col = st.columns([2, 1])
-    with jump_col:
+    with nav_right:
         jc1, jc2 = st.columns([3, 1])
         with jc1:
             target = st.number_input("跳转到", min_value=1, max_value=len(pool),
@@ -518,8 +511,8 @@ def page_practice(username, bank_name, filtered):
                 _save_pos()
                 st.session_state.seq_idx = target - 1
                 st.rerun()
-    with prog_col:
-        st.caption(f"当前第 {st.session_state.seq_idx + 1} 题 / 共 {len(pool)} 题")
+
+    st.caption(f"当前第 {st.session_state.seq_idx + 1} 题 / 共 {len(pool)} 题")
 
     # 统计已答题数（供进度网格使用）
     answered_in_pool = sum(1 for q_item in pool if f"{bank_name}:{q_item['id']}" in answered)
