@@ -928,6 +928,10 @@ def main():
             st.session_state.current_user = None
             st.rerun()
 
+        st.markdown("---")
+        st.caption("创作者：Qing")
+        st.warning("⚠️ 内容由 AI 整理，如有漏题或答案不匹配，请向作者反馈更正。")
+
     # ── 主内容区 ──
     if st.session_state.get("exam_active"):
         _render_exam_card()
