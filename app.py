@@ -409,7 +409,7 @@ def page_practice(username, bank_name, filtered):
                               user_answer=st.session_state.get(f"{pfx}_user_ans"),
                               bank_name=render_bank)
 
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     with col1:
         if st.button("✅ 确认答案", key=f"{pfx}_confirm",
                      disabled=st.session_state[answered_key], use_container_width=True):
@@ -435,6 +435,16 @@ def page_practice(username, bank_name, filtered):
             _save_pos()
             st.session_state.seq_idx += 1
             st.rerun()
+    with col3:
+        if st.button("💾 保存记录", key=f"{pfx}_save", use_container_width=True):
+            um.save_practice_position(
+                username, bank_name,
+                st.session_state.get("sel_part", "全部"),
+                st.session_state.get("sel_qtype", "全部"),
+                st.session_state.seq_idx,
+            )
+            st.session_state._nav_count = 0
+            st.success("记录已保存")
 
     if st.session_state[answered_key]:
         show_result_feedback(q, st.session_state[f"{pfx}_user_ans"], q["answer"], pfx, render_bank)
