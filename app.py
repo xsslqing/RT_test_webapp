@@ -275,6 +275,12 @@ def page_login():
                     except ValueError as e:
                         st.error(str(e))
 
+    st.markdown("---")
+    st.markdown(
+        "<div style='text-align: center; color: #999; font-size: 0.85rem;'>创作者：Qing</div>",
+        unsafe_allow_html=True,
+    )
+
 
 # ══════════════════════════════════════════════════════════
 # 顺序刷题
