@@ -415,7 +415,7 @@ def page_practice(username, bank_name, filtered):
 
     type_label = "单选题" if q["type"] == "single" else "多选题"
     part_label = PART_SHORT.get(q["part"], q["part"])
-    st.markdown(f"**第 {st.session_state.seq_idx + 1} / {len(pool)} 题** | {part_label} | {type_label}")
+    st.markdown(f"**第 {st.session_state.seq_idx + 1} / {len(pool)} 题** (题库编号: {q['id']}) | {part_label} | {type_label}")
 
     render_stem_images(q["stem"], bank_name=render_bank)
 
@@ -633,7 +633,7 @@ def _run_exam(username):
     type_label = "单选题" if q["type"] == "single" else "多选题"
     part_label = PART_SHORT.get(q["part"], q["part"])
     score_info = f"{EXAM_SINGLE_SCORE}分" if q["type"] == "single" else f"{EXAM_MULTI_SCORE}分"
-    st.markdown(f"**第 {current_idx + 1} / {len(exam_qs)} 题** | {part_label} | {type_label} | {score_info}")
+    st.markdown(f"**第 {current_idx + 1} / {len(exam_qs)} 题** (题库编号: {q['id']}) | {part_label} | {type_label} | {score_info}")
 
     render_stem_images(q["stem"], bank_name=bank_name)
 
@@ -846,7 +846,7 @@ def page_wrong_book(username):
         part_label = PART_SHORT.get(info.get("part", ""), info.get("part", ""))
         attempts = info.get("attempts", 1)
 
-        with st.expander(f"{idx+1}. [{type_label}] [{bank}] {info['stem'][:50]}... (错{attempts}次)"):
+        with st.expander(f"{idx+1}. [编号:{info.get('q_id', '?')}] [{type_label}] [{bank}] {info['stem'][:50]}... (错{attempts}次)"):
             render_stem_images(info["stem"], bank_name=bank)
             if info.get("options"):
                 for k, v in sorted(info["options"].items()):
