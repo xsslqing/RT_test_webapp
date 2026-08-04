@@ -1,0 +1,16 @@
+﻿__pycache__/
+*.py[cod]
+
+.env
+.env.*
+!.env.example
+
+.vscode/
+.idea/
+
+*.log
+Thumbs.db
+.DS_Store
+
+verification_report.txt
+_final_check.txt

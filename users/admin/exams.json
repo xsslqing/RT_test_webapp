@@ -1,0 +1,515 @@
+[
+  {
+    "exam_id": "20260804_105206",
+    "date": "2026-08-04T10:52:06",
+    "total_score": 4,
+    "max_score": 120,
+    "correct_count": 2,
+    "total_count": 50,
+    "single_correct": 2,
+    "multi_correct": 0,
+    "duration_seconds": 59,
+    "details": [
+      {
+        "bank": "综合题库",
+        "q_id": 80,
+        "num": 80,
+        "type": "single",
+        "user_ans": "D",
+        "correct_ans": "B",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 143,
+        "num": 143,
+        "type": "single",
+        "user_ans": "C",
+        "correct_ans": "C",
+        "is_correct": true,
+        "score": 2
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 316,
+        "num": 92,
+        "type": "single",
+        "user_ans": "D",
+        "correct_ans": "D",
+        "is_correct": true,
+        "score": 2
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 331,
+        "num": 107,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 299,
+        "num": 75,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "D",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 160,
+        "num": 160,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "图片题库",
+        "q_id": 139,
+        "num": 139,
+        "type": "multiple",
+        "user_ans": "",
+        "correct_ans": "A,B,C,D,E",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 525,
+        "num": 137,
+        "type": "multiple",
+        "user_ans": "",
+        "correct_ans": "A,B,C,D,E",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 73,
+        "num": 73,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "B",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 401,
+        "num": 13,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "B",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "图片题库",
+        "q_id": 73,
+        "num": 73,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 479,
+        "num": 91,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 538,
+        "num": 150,
+        "type": "multiple",
+        "user_ans": "",
+        "correct_ans": "A,B,E",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 130,
+        "num": 130,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "B",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 352,
+        "num": 128,
+        "type": "multiple",
+        "user_ans": "",
+        "correct_ans": "A,B,C,D,E",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "图片题库",
+        "q_id": 170,
+        "num": 170,
+        "type": "multiple",
+        "user_ans": "",
+        "correct_ans": "B,C",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 101,
+        "num": 101,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 415,
+        "num": 27,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "D",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 136,
+        "num": 136,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 454,
+        "num": 66,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "B",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 402,
+        "num": 14,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 511,
+        "num": 123,
+        "type": "multiple",
+        "user_ans": "",
+        "correct_ans": "B,C,D,E",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "图片题库",
+        "q_id": 52,
+        "num": 52,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 337,
+        "num": 113,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 120,
+        "num": 120,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "C",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 105,
+        "num": 105,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "图片题库",
+        "q_id": 17,
+        "num": 17,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "图片题库",
+        "q_id": 23,
+        "num": 23,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 22,
+        "num": 22,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "图片题库",
+        "q_id": 35,
+        "num": 35,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "B",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "图片题库",
+        "q_id": 11,
+        "num": 11,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "B",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "图片题库",
+        "q_id": 75,
+        "num": 75,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "D",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "图片题库",
+        "q_id": 29,
+        "num": 29,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "D",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "图片题库",
+        "q_id": 65,
+        "num": 65,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 68,
+        "num": 68,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "C",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 409,
+        "num": 21,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "D",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "图片题库",
+        "q_id": 187,
+        "num": 187,
+        "type": "multiple",
+        "user_ans": "",
+        "correct_ans": "A,D",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 147,
+        "num": 147,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 140,
+        "num": 140,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 351,
+        "num": 127,
+        "type": "multiple",
+        "user_ans": "",
+        "correct_ans": "A,B,C,D",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 133,
+        "num": 133,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 472,
+        "num": 84,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "A",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 430,
+        "num": 42,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "B",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "图片题库",
+        "q_id": 78,
+        "num": 78,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "D",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "图片题库",
+        "q_id": 162,
+        "num": 162,
+        "type": "multiple",
+        "user_ans": "",
+        "correct_ans": "A,B,C,D",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 92,
+        "num": 92,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "D",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "图片题库",
+        "q_id": 91,
+        "num": 91,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "B",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 115,
+        "num": 115,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "C",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 431,
+        "num": 43,
+        "type": "single",
+        "user_ans": "",
+        "correct_ans": "B",
+        "is_correct": false,
+        "score": 0
+      },
+      {
+        "bank": "综合题库",
+        "q_id": 216,
+        "num": 216,
+        "type": "multiple",
+        "user_ans": "",
+        "correct_ans": "A,C,E",
+        "is_correct": false,
+        "score": 0
+      }
+    ]
+  }
+]

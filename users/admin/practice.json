@@ -1,0 +1,291 @@
+{
+  "answered": {
+    "图片题库:2": {
+      "bank": "图片题库",
+      "q_id": 2,
+      "q_num": 2,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "B",
+      "correct_ans": "A",
+      "is_correct": false,
+      "timestamp": "2026-08-04T10:48:56"
+    },
+    "综合题库:1": {
+      "bank": "综合题库",
+      "q_id": 1,
+      "q_num": 1,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "A",
+      "correct_ans": "A",
+      "is_correct": true,
+      "timestamp": "2026-08-04T10:55:13"
+    },
+    "综合题库:2": {
+      "bank": "综合题库",
+      "q_id": 2,
+      "q_num": 2,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "A",
+      "correct_ans": "A",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:04:13"
+    },
+    "综合题库:3": {
+      "bank": "综合题库",
+      "q_id": 3,
+      "q_num": 3,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "D",
+      "correct_ans": "D",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:04:22"
+    },
+    "综合题库:4": {
+      "bank": "综合题库",
+      "q_id": 4,
+      "q_num": 4,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "B",
+      "correct_ans": "B",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:04:31"
+    },
+    "综合题库:5": {
+      "bank": "综合题库",
+      "q_id": 5,
+      "q_num": 5,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "D",
+      "correct_ans": "D",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:04:40"
+    },
+    "综合题库:6": {
+      "bank": "综合题库",
+      "q_id": 6,
+      "q_num": 6,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "B",
+      "correct_ans": "A",
+      "is_correct": false,
+      "timestamp": "2026-08-04T11:04:59"
+    },
+    "综合题库:7": {
+      "bank": "综合题库",
+      "q_id": 7,
+      "q_num": 7,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "A",
+      "correct_ans": "D",
+      "is_correct": false,
+      "timestamp": "2026-08-04T11:05:28"
+    },
+    "图片题库:6": {
+      "bank": "图片题库",
+      "q_id": 6,
+      "q_num": 6,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "C",
+      "correct_ans": "C",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:10:20"
+    },
+    "图片题库:7": {
+      "bank": "图片题库",
+      "q_id": 7,
+      "q_num": 7,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "B",
+      "correct_ans": "B",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:10:38"
+    },
+    "图片题库:8": {
+      "bank": "图片题库",
+      "q_id": 8,
+      "q_num": 8,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "A",
+      "correct_ans": "A",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:11:39"
+    },
+    "图片题库:9": {
+      "bank": "图片题库",
+      "q_id": 9,
+      "q_num": 9,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "C",
+      "correct_ans": "D",
+      "is_correct": false,
+      "timestamp": "2026-08-04T11:12:19"
+    },
+    "图片题库:10": {
+      "bank": "图片题库",
+      "q_id": 10,
+      "q_num": 10,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "C",
+      "correct_ans": "B",
+      "is_correct": false,
+      "timestamp": "2026-08-04T11:15:15"
+    },
+    "图片题库:11": {
+      "bank": "图片题库",
+      "q_id": 11,
+      "q_num": 11,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "B",
+      "correct_ans": "B",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:15:34"
+    },
+    "图片题库:12": {
+      "bank": "图片题库",
+      "q_id": 12,
+      "q_num": 12,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "B",
+      "correct_ans": "B",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:15:43"
+    },
+    "图片题库:13": {
+      "bank": "图片题库",
+      "q_id": 13,
+      "q_num": 13,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "A",
+      "correct_ans": "A",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:15:56"
+    },
+    "图片题库:14": {
+      "bank": "图片题库",
+      "q_id": 14,
+      "q_num": 14,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "A",
+      "correct_ans": "A",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:16:03"
+    },
+    "图片题库:15": {
+      "bank": "图片题库",
+      "q_id": 15,
+      "q_num": 15,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "B",
+      "correct_ans": "B",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:16:12"
+    },
+    "图片题库:16": {
+      "bank": "图片题库",
+      "q_id": 16,
+      "q_num": 16,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "A",
+      "correct_ans": "A",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:16:18"
+    },
+    "图片题库:17": {
+      "bank": "图片题库",
+      "q_id": 17,
+      "q_num": 17,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "A",
+      "correct_ans": "A",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:16:38"
+    },
+    "图片题库:18": {
+      "bank": "图片题库",
+      "q_id": 18,
+      "q_num": 18,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "C",
+      "correct_ans": "C",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:16:56"
+    },
+    "综合题库:17": {
+      "bank": "综合题库",
+      "q_id": 17,
+      "q_num": 17,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "B",
+      "correct_ans": "B",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:47:08"
+    },
+    "综合题库:18": {
+      "bank": "综合题库",
+      "q_id": 18,
+      "q_num": 18,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "D",
+      "correct_ans": "D",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:47:39"
+    },
+    "综合题库:19": {
+      "bank": "综合题库",
+      "q_id": 19,
+      "q_num": 19,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "B",
+      "correct_ans": "B",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:47:52"
+    },
+    "综合题库:20": {
+      "bank": "综合题库",
+      "q_id": 20,
+      "q_num": 20,
+      "type": "single",
+      "part": "电离辐射安全与防护基础",
+      "user_ans": "D",
+      "correct_ans": "D",
+      "is_correct": true,
+      "timestamp": "2026-08-04T11:48:07"
+    }
+  },
+  "stats": {
+    "total_answered": 25,
+    "correct_count": 20,
+    "accuracy": 80.0,
+    "last_practice": "2026-08-04T11:48:07"
+  },
+  "position": {
+    "bank": "综合题库",
+    "part": "全部",
+    "qtype": "全部",
+    "index": 32
+  }
+}
