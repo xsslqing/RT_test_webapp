@@ -224,6 +224,37 @@ def show_result_feedback(q, user_ans, correct_ans, key_prefix, bank_name):
     return is_correct
 
 
+def render_correction(q_key, username):
+    """渲染题目纠错区域：显示已有纠错 + 提交新纠错。"""
+    corrections = um.load_corrections()
+    entries = corrections.get(q_key, [])
+    count_label = f"（{len(entries)} 条）" if entries else ""
+
+    with st.expander(f"📝 纠错备注{count_label}", expanded=False):
+        # 显示已有纠错
+        if entries:
+            for entry in entries:
+                user = entry.get("user", "匿名")
+                text = entry.get("text", "")
+                time_str = entry.get("time", "")[:16].replace("T", " ")
+                st.markdown(f"**{user}** · {time_str}")
+                st.markdown(f"> {text}")
+                st.markdown("---")
+        else:
+            st.caption("暂无纠错，欢迎提交。")
+
+        # 提交新纠错
+        new_text = st.text_area("提交纠错", placeholder="如发现题目有误，请在此说明…",
+                                key=f"corr_input_{q_key}", height=80)
+        if st.button("提交纠错", key=f"corr_submit_{q_key}", use_container_width=True):
+            if new_text.strip():
+                um.add_correction(q_key, username, new_text.strip())
+                st.success("纠错已提交，感谢反馈！")
+                st.rerun()
+            else:
+                st.warning("请输入纠错内容。")
+
+
 def _get_wrong_questions(username):
     """从用户错题本重建题目列表，每题附带 _orig_bank 用于图片渲染。"""
     wrong = um.load_wrong_cached(username)
@@ -408,6 +439,9 @@ def page_practice(username, bank_name, filtered):
     if st.session_state[answered_key]:
         show_result_feedback(q, st.session_state[f"{pfx}_user_ans"], q["answer"], pfx, render_bank)
 
+    # 纠错备注
+    render_correction(q_key, username)
+
     # 导航（两行布局，移动端友好）
     st.markdown("---")
     nav1, nav2 = st.columns(2)
@@ -584,6 +618,10 @@ def _run_exam(username):
         user_ans = render_options(q, q_key, disabled=False, user_answer=prev_ans, bank_name=bank_name)
         if user_ans:
             st.session_state.exam_answers[q["id"]] = user_ans
+
+    # 纠错备注（使用与刷题一致的 q_key，共享纠错数据）
+    correction_key = f"{bank_name}:{q['id']}"
+    render_correction(correction_key, username)
 
     # 导航按钮（两行布局，移动端友好）
     if not submitted:

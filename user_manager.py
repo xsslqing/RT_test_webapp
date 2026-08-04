@@ -526,3 +526,28 @@ def set_exam_retention_count(count: int) -> None:
     config = _ensure_system_config()
     config["exam_retention"] = count
     db.table("user_data").update({"practice": config, "updated_at": _now()}).eq("username", _SYSTEM_USER).execute()
+
+
+# ── Question Corrections (纠错) ─────────────────────────────
+
+def load_corrections() -> dict:
+    """加载所有题目纠错（全局共享）。返回 {q_key: [{user, text, time}, ...]}。"""
+    db = _get_db()
+    result = db.table("user_data").select("wrong").eq("username", _SYSTEM_USER).limit(1).execute()
+    if result.data:
+        return result.data[0].get("wrong", {})
+    return {}
+
+
+def add_correction(q_key: str, username: str, text: str) -> None:
+    """为指定题目添加纠错备注。"""
+    db = _get_db()
+    corrections = load_corrections()
+    entries = corrections.get(q_key, [])
+    entries.append({
+        "user": username,
+        "text": text.strip(),
+        "time": _now(),
+    })
+    corrections[q_key] = entries
+    db.table("user_data").update({"wrong": corrections, "updated_at": _now()}).eq("username", _SYSTEM_USER).execute()
