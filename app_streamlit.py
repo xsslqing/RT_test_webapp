@@ -32,11 +32,11 @@ def load_pic_questions():
     with open(os.path.join(BASE_DIR, "questions_pic.json"), encoding="utf-8") as f:
         return json.load(f)
 
-ALL_BANKS = {"综合题库": load_questions(), "图片题库": load_pic_questions()}
+ALL_BANKS = {"放疗综合题库": load_questions(), "公共图片题库": load_pic_questions()}
 
 PARTS_MAP = {
-    "综合题库": ["全部", "电离辐射安全与防护基础", "核技术利用辐射安全法律法规", "专业实务"],
-    "图片题库": ["全部", "图片题-电离辐射安全与防护基础"],
+    "放疗综合题库": ["全部", "电离辐射安全与防护基础", "核技术利用辐射安全法律法规", "专业实务"],
+    "公共图片题库": ["全部", "图片题-电离辐射安全与防护基础"],
 }
 PART_SHORT = {
     "电离辐射安全与防护基础": "基础",
@@ -57,9 +57,9 @@ EXAM_DEFAULT_MINUTES = 120
 # 图片 / 题目渲染辅助
 # ══════════════════════════════════════════════════════════
 def get_img_dir(bank_name):
-    return IMG_PIC_DIR if bank_name == "图片题库" else IMG_DIR
+    return IMG_PIC_DIR if bank_name == "公共图片题库" else IMG_DIR
 
-def show_image(img_name, width=300, bank_name="综合题库"):
+def show_image(img_name, width=300, bank_name="放疗综合题库"):
     img_path = os.path.join(get_img_dir(bank_name), img_name)
     if os.path.exists(img_path):
         try:
@@ -78,7 +78,7 @@ def render_stem_images(stem_text, bank_name):
         else:
             show_image(part, width=400, bank_name=bank_name)
 
-def render_options(q, key_prefix, disabled=False, user_answer=None, bank_name="综合题库"):
+def render_options(q, key_prefix, disabled=False, user_answer=None, bank_name="放疗综合题库"):
     """渲染选项（含图片），返回用户选择列表。"""
     opts = q["options"]
     opt_imgs = q.get("option_images", {})
@@ -329,12 +329,12 @@ def page_practice(username, bank_name, filtered):
 # ══════════════════════════════════════════════════════════
 def _build_exam_pool(bank_choice):
     """构建模拟考试题目池。返回 (single_pool, multi_pool)。"""
-    if bank_choice == "综合题库":
-        banks = ["综合题库"]
-    elif bank_choice == "图片题库":
-        banks = ["图片题库"]
+    if bank_choice == "放疗综合题库":
+        banks = ["放疗综合题库"]
+    elif bank_choice == "公共图片题库":
+        banks = ["公共图片题库"]
     else:
-        banks = ["综合题库", "图片题库"]
+        banks = ["放疗综合题库", "公共图片题库"]
 
     single_pool, multi_pool = [], []
     for b in banks:
@@ -364,7 +364,7 @@ def page_mock_exam(username):
 
     col1, col2 = st.columns(2)
     with col1:
-        bank_choice = st.selectbox("题目范围", ["全部题库（综合+图片）", "综合题库", "图片题库"])
+        bank_choice = st.selectbox("题目范围", ["全部题库（综合+图片）", "放疗综合题库", "公共图片题库"])
     with col2:
         exam_time = st.slider("考试时长（分钟）", min_value=30, max_value=180,
                               value=EXAM_DEFAULT_MINUTES, step=10)
@@ -729,10 +729,10 @@ def main():
     if not st.session_state.get("_position_restored"):
         pos = um.load_practice_position(username)
         if pos:
-            restored_bank = pos.get("bank", "综合题库")
+            restored_bank = pos.get("bank", "放疗综合题库")
             valid_banks = set(ALL_BANKS.keys()) | {"错题库"}
             if restored_bank not in valid_banks:
-                restored_bank = "综合题库"
+                restored_bank = "放疗综合题库"
             restored_part = pos.get("part", "全部")
             if restored_part not in PARTS_MAP.get(restored_bank, ["全部"]):
                 restored_part = "全部"
@@ -826,7 +826,7 @@ def main():
             # 题库选择（非考试/记录/统计模式）
             if page in ("顺序刷题", "错题本"):
                 st.markdown("### 题库选择")
-                bank_options = ["综合题库", "图片题库", "错题库"] if page == "顺序刷题" else ["综合题库", "图片题库"]
+                bank_options = ["放疗综合题库", "公共图片题库", "错题库"] if page == "顺序刷题" else ["放疗综合题库", "公共图片题库"]
                 selected_bank = st.radio("题库", bank_options, horizontal=True,
                                         key="bank_selector")
                 st.session_state["bank_name"] = selected_bank
@@ -869,7 +869,7 @@ def main():
         _run_exam(username)
     else:
         page = st.session_state.page
-        bank_name = st.session_state.get("bank_name", "综合题库")
+        bank_name = st.session_state.get("bank_name", "放疗综合题库")
 
         if page == "顺序刷题":
             page_practice(username, bank_name, filtered)
