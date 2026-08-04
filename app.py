@@ -1105,7 +1105,7 @@ def _render_controls(username, is_admin=False):
 
     if page in ("顺序刷题", "错题本"):
         bank_options = ["放疗综合题库", "公共图片题库", "错题库"] if page == "顺序刷题" else ["放疗综合题库", "公共图片题库"]
-        selected_bank = st.radio("题库", bank_options, horizontal=True, key="bank_selector")
+        selected_bank = st.radio("请选择题库（下面两个主要题库都要刷）", bank_options, horizontal=True, key="bank_selector")
         st.session_state["bank_name"] = selected_bank
 
         if page == "顺序刷题":
