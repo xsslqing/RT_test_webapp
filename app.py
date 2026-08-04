@@ -1193,6 +1193,10 @@ def main():
             st.session_state.seq_idx = pos.get("index", 0)
             st.session_state.sel_part = restored_part
             st.session_state.sel_qtype = restored_qtype
+            # 初始化筛选追踪值，避免首次运行时误判为筛选变化
+            st.session_state._filter_bank = restored_bank
+            st.session_state._filter_part = restored_part
+            st.session_state._filter_qtype = restored_qtype
         st.session_state._position_restored = True
         st.session_state._last_saved_page = st.session_state.page
         if pos:
@@ -1251,6 +1255,27 @@ def main():
         filtered = _render_controls(username, is_admin=is_admin)
         page = st.session_state.page
         bank_name = st.session_state.get("bank_name", "放疗综合题库")
+
+        # ── 检测筛选条件变化，恢复对应组合的刷题位置 ──
+        if page == "顺序刷题":
+            cur_bank = bank_name
+            cur_part = st.session_state.get("sel_part", "全部")
+            cur_qtype = st.session_state.get("sel_qtype", "全部")
+            prev_bank = st.session_state.get("_filter_bank")
+            prev_part = st.session_state.get("_filter_part")
+            prev_qtype = st.session_state.get("_filter_qtype")
+
+            if (prev_bank, prev_part, prev_qtype) != (cur_bank, cur_part, cur_qtype):
+                # 筛选条件变化，加载该组合的保存位置
+                saved_idx = um.load_position_for_filter(username, cur_bank, cur_part, cur_qtype)
+                if saved_idx is not None and filtered:
+                    st.session_state.seq_idx = min(saved_idx, len(filtered) - 1)
+                elif filtered:
+                    st.session_state.seq_idx = 0
+                # 更新追踪值
+                st.session_state._filter_bank = cur_bank
+                st.session_state._filter_part = cur_part
+                st.session_state._filter_qtype = cur_qtype
 
         if page == "顺序刷题":
             page_practice(username, bank_name, filtered)

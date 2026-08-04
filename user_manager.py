@@ -288,6 +288,10 @@ def load_practice_cached(username: str) -> dict:
     return data.get("practice", {"answered": {}, "stats": {}})
 
 
+def _pos_key(bank: str, part: str, qtype: str) -> str:
+    return f"{bank}:{part}:{qtype}"
+
+
 def save_practice_position(
     username: str,
     bank: str,
@@ -297,7 +301,12 @@ def save_practice_position(
 ) -> None:
     data = load_practice_cached(username)
 
-    data["position"] = {
+    positions = data.get("positions", {})
+    positions[_pos_key(bank, part, qtype)] = {"index": index}
+    data["positions"] = positions
+
+    # 同时保存最后活跃位置（用于登录恢复）
+    data["last_position"] = {
         "bank": bank,
         "part": part,
         "qtype": qtype,
@@ -308,7 +317,19 @@ def save_practice_position(
 
 
 def load_practice_position(username: str):
-    return load_practice_cached(username).get("position")
+    """返回最后一次活跃的位置（兼容旧数据）。"""
+    data = load_practice_cached(username)
+    return data.get("last_position") or data.get("position")
+
+
+def load_position_for_filter(username: str, bank: str, part: str, qtype: str):
+    """返回指定筛选组合的保存位置，无则返回 None。"""
+    data = load_practice_cached(username)
+    positions = data.get("positions", {})
+    entry = positions.get(_pos_key(bank, part, qtype))
+    if entry:
+        return entry.get("index")
+    return None
 
 
 def record_practice_answer(
