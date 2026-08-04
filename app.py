@@ -39,9 +39,9 @@ PARTS_MAP = {
     "公共图片题库": ["全部", "图片题-电离辐射安全与防护基础"],
 }
 PART_SHORT = {
-    "电离辐射安全与防护基础": "基础",
-    "核技术利用辐射安全法律法规": "法规",
-    "专业实务": "实务",
+    "电离辐射安全与防护基础": "安全与防护基础",
+    "核技术利用辐射安全法律法规": "法律法规",
+    "专业实务": "专业实务",
     "图片题-电离辐射安全与防护基础": "图片基础",
 }
 
@@ -214,7 +214,7 @@ def show_result_feedback(q, user_ans, correct_ans, key_prefix, bank_name):
 
 def _get_wrong_questions(username):
     """从用户错题本重建题目列表，每题附带 _orig_bank 用于图片渲染。"""
-    wrong = um.load_wrong(username)
+    wrong = um.load_wrong_cached(username)
     result = []
     for q_key, info in wrong.items():
         bank = info.get("bank", "")
@@ -255,15 +255,15 @@ def page_login():
     with tab_register:
         with st.form("register_form"):
             new_username = st.text_input("用户名", key="reg_user")
-            new_password = st.text_input("密码", type="password", key="reg_pass")
+            new_password = st.text_input("密码（8位）", type="password", key="reg_pass")
             confirm_password = st.text_input("确认密码", type="password", key="reg_confirm")
             if st.form_submit_button("注册", use_container_width=True):
                 if not new_username.strip():
                     st.error("用户名不能为空")
                 elif new_password != confirm_password:
                     st.error("两次密码不一致")
-                elif len(new_password) < 3:
-                    st.error("密码至少3个字符")
+                elif len(new_password) < 8:
+                    st.error("密码至少8个字符")
                 else:
                     try:
                         user = um.register(new_username.strip(), new_password)
@@ -289,13 +289,24 @@ def page_practice(username, bank_name, filtered):
     st.header("📖 顺序刷题")
 
     def _save_pos():
-        """保存当前刷题位置，以便下次登录恢复。"""
-        part_val = st.session_state.get("sel_part", "全部")
-        qtype_val = st.session_state.get("sel_qtype", "全部")
-        um.save_practice_position(username, bank_name, part_val, qtype_val,
-                                  st.session_state.seq_idx)
+        """更新刷题位置到 session_state；每 10 次导航才写入数据库。"""
+        st.session_state["_pos_bank"] = bank_name
+        st.session_state["_pos_part"] = st.session_state.get("sel_part", "全部")
+        st.session_state["_pos_qtype"] = st.session_state.get("sel_qtype", "全部")
+        st.session_state["_pos_idx"] = st.session_state.seq_idx
 
-    wrong = um.load_wrong(username)
+        nav_count = st.session_state.get("_nav_count", 0) + 1
+        st.session_state._nav_count = nav_count
+
+        if nav_count % 10 == 0:
+            um.save_practice_position(
+                username, bank_name,
+                st.session_state["_pos_part"],
+                st.session_state["_pos_qtype"],
+                st.session_state.seq_idx,
+            )
+
+    wrong = um.load_wrong_cached(username)
     is_wrong_bank = (bank_name == "错题库")
     show_wrong_first = st.checkbox("优先显示错题", value=False, disabled=is_wrong_bank)
 
@@ -395,6 +406,16 @@ def page_practice(username, bank_name, filtered):
                 st.rerun()
     with prog_col:
         st.caption(f"进度：{st.session_state.seq_idx + 1} / {len(pool)}")
+
+    if st.button("💾 保存位置", key="save_pos", use_container_width=True):
+        um.save_practice_position(
+            username, bank_name,
+            st.session_state.get("sel_part", "全部"),
+            st.session_state.get("sel_qtype", "全部"),
+            st.session_state.seq_idx,
+        )
+        st.session_state._nav_count = 0
+        st.success("位置已保存")
 
 
 # ══════════════════════════════════════════════════════════
@@ -543,7 +564,7 @@ def _run_exam(username):
 
 
 def _submit_exam(username):
-    """交卷：计算成绩、保存记录、更新错题。"""
+    """交卷：计算成绩、保存记录、批量更新错题。"""
     exam_qs = st.session_state.exam_questions
     answers = st.session_state.exam_answers
     st.session_state.exam_submitted = True
@@ -551,6 +572,10 @@ def _submit_exam(username):
     total_score = 0
     correct_count = 0
     details = []
+
+    # 一次性加载错题，循环中内存修改，最后写回（避免 50×2 次 DB 往返）
+    wrong = um.load_wrong_cached(username)
+    now_str = um._now()
 
     for bank_name, q in exam_qs:
         user_ans = answers.get(q["id"], [])
@@ -578,9 +603,27 @@ def _submit_exam(username):
         })
 
         if not is_correct:
-            um.add_wrong(username, q_key, bank_name, q, user_ans_str, correct_ans)
+            entry = wrong.get(q_key, {"attempts": 0})
+            entry.update({
+                "bank": bank_name,
+                "q_id": q.get("id"),
+                "num": q.get("num"),
+                "type": q.get("type"),
+                "part": q.get("part"),
+                "stem": q.get("stem", ""),
+                "options": q.get("options", {}),
+                "option_images": q.get("option_images", {}),
+                "answer": correct_ans,
+                "user_ans": user_ans_str,
+                "attempts": entry["attempts"] + 1,
+                "last_wrong": now_str,
+            })
+            wrong[q_key] = entry
         else:
-            um.remove_wrong(username, q_key)
+            wrong.pop(q_key, None)
+
+    # 一次写回错题
+    um.save_wrong(username, wrong)
 
     duration = time.time() - st.session_state.exam_start_time
     record = {
@@ -647,8 +690,8 @@ def _display_exam_result(username):
                 st.write(f"**你的答案：** {d['user_ans'] or '未作答'}")
                 st.write(f"**正确答案：** {d['correct_ans']}")
 
-    # 结束考试按钮
-    if st.button("🏁 结束考试", key="end_exam", use_container_width=True):
+    # 返回主菜单按钮
+    if st.button("🏠 返回主菜单", key="end_exam", use_container_width=True):
         for key in ["exam_active", "exam_questions", "exam_answers", "exam_submitted",
                      "exam_start_time", "exam_duration", "exam_current", "exam_result"]:
             st.session_state.pop(key, None)
@@ -661,7 +704,7 @@ def _display_exam_result(username):
 def page_wrong_book(username):
     st.header("📕 错题本")
 
-    wrong = um.load_wrong(username)
+    wrong = um.load_wrong_cached(username)
     if not wrong:
         st.info("错题本为空，继续加油！")
         return
@@ -708,7 +751,7 @@ def page_wrong_book(username):
 def page_exam_history(username):
     st.header("📋 考试记录")
 
-    exams = um.load_exams(username)
+    exams = um.load_exams_cached(username)
     if not exams:
         st.info("暂无考试记录。")
         return
@@ -754,10 +797,10 @@ def page_exam_history(username):
 def page_stats(username):
     st.header("📊 练习统计")
 
-    practice = um.load_practice(username)
+    practice = um.load_practice_cached(username)
     stats = practice.get("stats", {})
-    wrong = um.load_wrong(username)
-    exams = um.load_exams(username)
+    wrong = um.load_wrong_cached(username)
+    exams = um.load_exams_cached(username)
 
     st.subheader("刷题统计")
     col1, col2, col3, col4 = st.columns(4)
@@ -792,6 +835,124 @@ def page_stats(username):
             st.metric("最高分", "-")
 
 
+def page_leaderboard(username):
+    st.header("🏆 考试排行榜")
+
+    rows = um.load_leaderboard()
+
+    if not rows:
+        st.info("暂无考试记录，快去参加考试吧！")
+        return
+
+    # 前三名高亮
+    medals = {0: "🥇", 1: "🥈", 2: "🥉"}
+
+    for i, row in enumerate(rows):
+        rank = i + 1
+        medal = medals.get(i, "")
+        dur_min = row["best_duration"] // 60
+        dur_sec = row["best_duration"] % 60
+
+        if rank <= 3:
+            st.markdown(f"### {medal} 第 {rank} 名 — {row['username']}")
+            c1, c2, c3, c4 = st.columns(4)
+            with c1:
+                st.metric("最高分", f"{row['best_score']}/{EXAM_TOTAL_SCORE}")
+            with c2:
+                st.metric("考试次数", f"{row['exam_count']} 次")
+            with c3:
+                st.metric("平均分", f"{row['avg_score']}")
+            with c4:
+                st.metric("最快用时", f"{dur_min}分{dur_sec:02d}秒")
+            st.markdown("---")
+        else:
+            break
+
+    # 其余用户用表格
+    rest = rows[3:]
+    if rest:
+        st.subheader("完整排名")
+        table_data = []
+        for i, row in enumerate(rest):
+            rank = i + 4
+            dur_min = row["best_duration"] // 60
+            dur_sec = row["best_duration"] % 60
+            table_data.append({
+                "排名": rank,
+                "用户名": row["username"],
+                "最高分": f"{row['best_score']}/{EXAM_TOTAL_SCORE}",
+                "考试次数": f"{row['exam_count']} 次",
+                "平均分": row["avg_score"],
+                "最快用时": f"{dur_min}分{dur_sec:02d}秒",
+            })
+        st.dataframe(table_data, use_container_width=True, hide_index=True)
+
+
+def page_admin(username):
+    st.header("⚙️ 用户管理")
+
+    # ── 系统设置 ──
+    with st.expander("系统设置", expanded=False):
+        current_retention = um.get_exam_retention_count()
+        new_retention = st.number_input(
+            "考试记录保留条数",
+            min_value=1,
+            max_value=100,
+            value=current_retention,
+            help="每个用户保留最近多少条考试记录，超出自动删除旧记录",
+        )
+        if new_retention != current_retention:
+            if st.button("保存设置", type="primary"):
+                um.set_exam_retention_count(new_retention)
+                st.success(f"已设置为保留最新 {new_retention} 条考试记录")
+                st.rerun()
+
+    st.markdown("---")
+
+    # ── 用户列表 ──
+    users = um.list_users_with_role()
+
+    if not users:
+        st.info("暂无注册用户")
+        return
+
+    st.caption(f"共 {len(users)} 个用户")
+
+    for u in users:
+        uname = u["username"]
+        role = u.get("role", "user")
+        created = u.get("created_at", "")[:16].replace("T", " ")
+        role_label = "👑 管理员" if role == "admin" else "👤 用户"
+
+        col1, col2, col3 = st.columns([3, 2, 1])
+        with col1:
+            st.markdown(f"**{uname}** {role_label}")
+        with col2:
+            st.caption(f"注册时间：{created}")
+        with col3:
+            is_self = uname == username
+            btn_label = "当前用户" if is_self else "删除"
+            btn_disabled = is_self
+            if st.button(btn_label, key=f"del_{uname}", disabled=btn_disabled, use_container_width=True):
+                st.session_state["_confirm_delete"] = uname
+
+        # 删除确认
+        if st.session_state.get("_confirm_delete") == uname:
+            with st.container():
+                st.warning(f"确认删除用户 **{uname}** 及其所有数据？此操作不可恢复。")
+                c1, c2, _ = st.columns([1, 1, 4])
+                with c1:
+                    if st.button("确认删除", key=f"confirm_del_{uname}", type="primary"):
+                        um.delete_user(uname)
+                        st.session_state.pop("_confirm_delete", None)
+                        st.success(f"已删除用户 {uname}")
+                        st.rerun()
+                with c2:
+                    if st.button("取消", key=f"cancel_del_{uname}"):
+                        st.session_state.pop("_confirm_delete", None)
+                        st.rerun()
+
+
 # ══════════════════════════════════════════════════════════
 # 主应用
 # ══════════════════════════════════════════════════════════
@@ -824,12 +985,13 @@ def _render_exam_card():
                           on_click=_exam_nav, args=(idx,))
 
 
-def _render_controls(username):
+def _render_controls(username, is_admin=False):
     """在主内容区渲染页面导航 + 题库选择 + 筛选控件，返回 filtered 题目列表。"""
-    pages = ["顺序刷题", "模拟考试", "错题本", "考试记录", "练习统计"]
-    page = st.selectbox("页面导航", pages,
-                        index=pages.index(st.session_state.page) if st.session_state.page in pages else 0,
-                        label_visibility="collapsed")
+    pages = ["顺序刷题", "模拟考试", "错题本", "考试记录", "练习统计", "考试排行榜"]
+    if is_admin:
+        pages.append("用户管理")
+    page = st.selectbox("功能切换", pages,
+                        index=pages.index(st.session_state.page) if st.session_state.page in pages else 0)
     st.session_state.page = page
 
     filtered = None
@@ -865,7 +1027,7 @@ def _render_controls(username):
 
                 st.caption(f"当前题库：**{len(filtered)}** 题")
 
-    wrong = um.load_wrong(username)
+    wrong = um.load_wrong_cached(username)
     st.caption(f"错题本：**{len(wrong)}** 题")
     st.markdown("---")
 
@@ -873,7 +1035,10 @@ def _render_controls(username):
 
 
 def main():
-    um.ensure_admin()
+    # 每个会话只检查一次管理员账户，避免每次 rerun 都查库
+    if not st.session_state.get("_admin_checked"):
+        um.ensure_admin()
+        st.session_state._admin_checked = True
 
     for k, v in [("logged_in", False), ("current_user", None), ("page", "顺序刷题")]:
         if k not in st.session_state:
@@ -912,8 +1077,23 @@ def main():
             st.session_state.sel_part = restored_part
             st.session_state.sel_qtype = restored_qtype
         st.session_state._position_restored = True
+        st.session_state._last_saved_page = st.session_state.page
         if pos:
             st.rerun()
+
+    # ── 页面切换时保存刷题位置 ──
+    _cur_page = st.session_state.page
+    _prev_page = st.session_state.get("_last_saved_page", "")
+    if _cur_page != _prev_page:
+        if _prev_page == "顺序刷题" and "seq_idx" in st.session_state:
+            um.save_practice_position(
+                username,
+                st.session_state.get("_pos_bank", st.session_state.get("bank_name", "放疗综合题库")),
+                st.session_state.get("_pos_part", st.session_state.get("sel_part", "全部")),
+                st.session_state.get("_pos_qtype", st.session_state.get("sel_qtype", "全部")),
+                st.session_state.seq_idx,
+            )
+        st.session_state._last_saved_page = _cur_page
 
     # ── 侧边栏（精简：仅用户信息 + 退出） ──
     with st.sidebar:
@@ -921,6 +1101,15 @@ def main():
         role_tag = "👑 管理员" if is_admin else "👤 用户"
         st.markdown(f"**{username}** ({role_tag})")
         if st.button("🚪 退出登录", use_container_width=True):
+            # 退出前保存刷题位置
+            if "seq_idx" in st.session_state:
+                um.save_practice_position(
+                    username,
+                    st.session_state.get("_pos_bank", st.session_state.get("bank_name", "放疗综合题库")),
+                    st.session_state.get("_pos_part", st.session_state.get("sel_part", "全部")),
+                    st.session_state.get("_pos_qtype", st.session_state.get("sel_qtype", "全部")),
+                    st.session_state.seq_idx,
+                )
             for key in list(st.session_state.keys()):
                 if key not in ("logged_in", "current_user"):
                     del st.session_state[key]
@@ -934,10 +1123,15 @@ def main():
 
     # ── 主内容区 ──
     if st.session_state.get("exam_active"):
+        if st.button("🏠 返回主菜单", key="exam_back_menu", use_container_width=True):
+            for key in ["exam_active", "exam_questions", "exam_answers", "exam_submitted",
+                         "exam_start_time", "exam_duration", "exam_current", "exam_result"]:
+                st.session_state.pop(key, None)
+            st.rerun()
         _render_exam_card()
         _run_exam(username)
     else:
-        filtered = _render_controls(username)
+        filtered = _render_controls(username, is_admin=is_admin)
         page = st.session_state.page
         bank_name = st.session_state.get("bank_name", "放疗综合题库")
 
@@ -951,6 +1145,10 @@ def main():
             page_exam_history(username)
         elif page == "练习统计":
             page_stats(username)
+        elif page == "考试排行榜":
+            page_leaderboard(username)
+        elif page == "用户管理":
+            page_admin(username)
 
 
 if __name__ == "__main__":

@@ -14,3 +14,7 @@ Thumbs.db
 
 verification_report.txt
 _final_check.txt
+
+user_manager_local_json_backup.py
+
+.streamlit/secrets.toml
