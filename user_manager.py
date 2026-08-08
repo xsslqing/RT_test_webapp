@@ -501,6 +501,58 @@ def load_leaderboard() -> list[dict]:
     return rows
 
 
+def load_practice_leaderboard() -> list[dict]:
+    """查询所有用户的练习记录，返回练习排行榜数据（按刷题数量降序）。"""
+    result = (
+        _get_db()
+        .table("user_data")
+        .select("username,practice")
+        .execute()
+    )
+
+    rows = []
+    for row in result.data:
+        username = row.get("username")
+        if username == "_system":
+            continue
+        practice = row.get("practice") or {}
+        stats = practice.get("stats", {})
+        answered = practice.get("answered", {})
+
+        total_answered = stats.get("total_answered", 0) or len(answered)
+        if total_answered == 0:
+            continue
+
+        correct_count = stats.get("correct_count", 0)
+        accuracy = stats.get("accuracy", 0)
+        if accuracy == 0 and correct_count > 0:
+            accuracy = round(correct_count / total_answered * 100, 1)
+
+        # 按题库统计
+        bank_stats = {}
+        for q_key, ans_info in answered.items():
+            bank = ans_info.get("bank", "未知")
+            if bank not in bank_stats:
+                bank_stats[bank] = {"total": 0, "correct": 0}
+            bank_stats[bank]["total"] += 1
+            if ans_info.get("is_correct"):
+                bank_stats[bank]["correct"] += 1
+
+        last_practice = stats.get("last_practice", "")
+
+        rows.append({
+            "username": username,
+            "total_answered": total_answered,
+            "correct_count": correct_count,
+            "accuracy": accuracy,
+            "bank_stats": bank_stats,
+            "last_practice": last_practice,
+        })
+
+    rows.sort(key=lambda r: -r["total_answered"])
+    return rows
+
+
 # ── Global Config ───────────────────────────────────────────
 
 _SYSTEM_USER = "_system"

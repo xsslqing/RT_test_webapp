@@ -497,7 +497,8 @@ def page_practice(username, bank_name, filtered):
     st.markdown("---")
     nav_left, nav_right = st.columns([1, 2])
     with nav_left:
-        if st.button("⬅️ 上一题", key="prac_prev", use_container_width=True):
+        if st.button("⬅️ 上一题", key=f"{pfx}_prev", use_container_width=True,
+                     disabled=st.session_state.seq_idx == 0):
             _save_pos()
             st.session_state.seq_idx = max(0, st.session_state.seq_idx - 1)
             st.rerun()
@@ -507,7 +508,7 @@ def page_practice(username, bank_name, filtered):
             target = st.number_input("跳转到", min_value=1, max_value=len(pool),
                                       value=st.session_state.seq_idx + 1, key="prac_jump_input")
         with jc2:
-            if st.button("跳转", key="prac_jump", use_container_width=True):
+            if st.button("跳转", key=f"{pfx}_jump", use_container_width=True):
                 _save_pos()
                 st.session_state.seq_idx = target - 1
                 st.rerun()
@@ -1027,6 +1028,71 @@ def page_leaderboard(username):
         st.dataframe(table_data, use_container_width=True, hide_index=True)
 
 
+def page_practice_leaderboard(username):
+    st.header("🏆 练习排行榜")
+
+    rows = um.load_practice_leaderboard()
+
+    if not rows:
+        st.info("暂无练习记录，快去刷题吧！")
+        return
+
+    # 前三名高亮
+    medals = {0: "🥇", 1: "🥈", 2: "🥉"}
+
+    for i, row in enumerate(rows):
+        rank = i + 1
+        medal = medals.get(i, "")
+
+        if rank <= 3:
+            st.markdown(f"### {medal} 第 {rank} 名 — {row['username']}")
+            c1, c2, c3, c4 = st.columns(4)
+            with c1:
+                st.metric("刷题数", f"{row['total_answered']} 题")
+            with c2:
+                st.metric("正确数", f"{row['correct_count']} 题")
+            with c3:
+                st.metric("正确率", f"{row['accuracy']}%")
+            with c4:
+                last = row.get("last_practice", "")
+                if last:
+                    st.metric("最近练习", last[:10].replace("T", "-"))
+                else:
+                    st.metric("最近练习", "-")
+
+            # 显示各题库统计
+            bank_stats = row.get("bank_stats", {})
+            if bank_stats:
+                bank_text = " | ".join(
+                    f"{bank}: {info['total']}题 ({info['correct']}/{info['total']}正确)"
+                    for bank, info in sorted(bank_stats.items())
+                )
+                st.caption(bank_text)
+
+            st.markdown("---")
+        else:
+            break
+
+    # 其余用户用表格
+    rest = rows[3:]
+    if rest:
+        st.subheader("完整排名")
+        table_data = []
+        for i, row in enumerate(rest):
+            rank = i + 4
+            last = row.get("last_practice", "")
+            last_display = last[:10].replace("T", "-") if last else "-"
+            table_data.append({
+                "排名": rank,
+                "用户名": row["username"],
+                "刷题数": f"{row['total_answered']} 题",
+                "正确数": f"{row['correct_count']} 题",
+                "正确率": f"{row['accuracy']}%",
+                "最近练习": last_display,
+            })
+        st.dataframe(table_data, use_container_width=True, hide_index=True)
+
+
 def page_admin(username):
     st.header("⚙️ 用户管理")
 
@@ -1128,7 +1194,7 @@ def _render_controls(username, is_admin=False):
     """在主内容区渲染页面导航 + 题库选择 + 筛选控件，返回 filtered 题目列表。"""
     pages = ["顺序刷题", "模拟考试", "错题本", "考试记录", "练习统计", "考试排行榜"]
     if is_admin:
-        pages.append("用户管理")
+        pages.extend(["练习排行", "用户管理"])
     page = st.selectbox("功能切换", pages,
                         index=pages.index(st.session_state.page) if st.session_state.page in pages else 0)
     st.session_state.page = page
@@ -1321,6 +1387,8 @@ def main():
             page_stats(username)
         elif page == "考试排行榜":
             page_leaderboard(username)
+        elif page == "练习排行":
+            page_practice_leaderboard(username)
         elif page == "用户管理":
             page_admin(username)
 
