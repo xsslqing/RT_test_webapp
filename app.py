@@ -5,6 +5,7 @@ import random
 import os
 import re
 import time
+from difflib import SequenceMatcher
 from datetime import datetime
 from PIL import Image
 
@@ -19,6 +20,103 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 IMG_DIR = os.path.join(BASE_DIR, "images")
 IMG_PIC_DIR = os.path.join(BASE_DIR, "images_pic")
 
+
+def _shift_pic_image_name(img_name, offset):
+    """修正 2026-08-09 批量整理时误加到图片序号上的偏移量。"""
+    match = re.fullmatch(r"image(\d+)(\.[^.]+)", img_name)
+    if not match or not offset:
+        return img_name
+    return f"image{int(match.group(1)) - offset}{match.group(2)}"
+
+
+def _repair_pic_question_images(questions):
+    """修复图片题库中已确认的批量编号偏移及整理时遗漏的选项图片。"""
+    for q in questions:
+        q_id = q.get("id", 0)
+
+        def offset_for(img_name):
+            image_num_match = re.search(r"\d+", img_name)
+            image_num = int(image_num_match.group()) if image_num_match else 0
+            if q_id in (52, 53, 55):
+                return 2
+            if 61 <= q_id <= 65:
+                return 3
+            if 69 <= q_id <= 161 or 163 <= q_id <= 186:
+                return 5
+            if 187 <= q_id <= 192:
+                return 6
+            if q_id >= 193:
+                return 7 if image_num >= 300 else 5
+            return 0
+
+        q["stem"] = re.sub(
+            r"\[IMG:([^\]]+)\]",
+            lambda m: f"[IMG:{_shift_pic_image_name(m.group(1), offset_for(m.group(1)))}]",
+            q.get("stem", ""),
+        )
+        q["option_images"] = {
+            key: [_shift_pic_image_name(name, offset_for(name)) for name in names]
+            for key, names in q.get("option_images", {}).items()
+        }
+
+    by_id = {q["id"]: q for q in questions}
+
+    # 批量整理时被整个删除的有效图片。
+    by_id[18]["stem"] += " [IMG:image17.jpeg]"
+    by_id[41]["option_images"] = {
+        "A": ["image43.jpeg"], "B": ["image44.jpeg"],
+        "C": ["image45.jpeg"], "D": ["image46.jpeg"],
+    }
+    by_id[47]["option_images"] = {
+        "A": ["image52.jpeg"], "B": ["image53.jpeg"], "C": ["image54.jpeg"],
+    }
+    by_id[49]["option_images"]["B"] = ["image60.jpeg"]
+    by_id[66]["option_images"] = {"A": ["image74.jpeg"], "C": ["image75.jpeg"]}
+    by_id[67]["option_images"] = {
+        "A": ["image76.jpeg"], "B": ["image77.jpeg"],
+        "C": ["image78.jpeg"], "D": ["image79.jpeg"],
+    }
+    by_id[68]["option_images"] = {
+        "A": ["image80.jpeg"], "B": ["image81.jpeg"],
+        "C": ["image82.jpeg"], "D": ["image83.jpeg"],
+    }
+    by_id[77]["option_images"]["C"] = ["image97.jpeg"]
+    by_id[82]["option_images"] = {
+        "A": ["image103.jpeg"], "B": ["image104.jpeg"],
+        "C": ["image105.jpeg"], "D": ["image106.jpeg"],
+    }
+    by_id[120]["option_images"]["B"] = ["image148.jpeg"]
+    by_id[148]["stem"] += " [IMG:image214.jpeg]"
+    by_id[151]["option_images"]["B"] = ["image221.jpeg"]
+
+    # 第 162 题使用的是整理后的完整图片组，不参与前后题统一的 -5 修正。
+    by_id[162]["option_images"]["B"] = ["image243.png"]
+    by_id[183]["stem"] += " [IMG:image280.jpeg]"
+    by_id[183]["option_images"] = {"A": ["image281.jpeg"], "C": ["image282.jpeg"]}
+    by_id[184]["option_images"] = {
+        "A": ["image283.jpeg"], "B": ["image284.jpeg"],
+        "C": ["image285.jpeg"], "D": ["image286.jpeg"],
+    }
+    by_id[185]["option_images"] = {
+        "A": ["image283.jpeg"], "B": ["image287.jpeg"],
+        "C": ["image285.jpeg"], "D": ["image288.jpeg"],
+    }
+    by_id[186]["option_images"] = {
+        "A": ["image283.jpeg"], "B": ["image289.jpeg"],
+        "C": ["image290.jpeg"], "D": ["image291.jpeg"],
+    }
+    by_id[191]["option_images"] = {
+        "A": ["image296.jpeg"], "B": ["image297.jpeg"],
+        "C": ["image298.jpeg"], "D": ["image299.jpeg"],
+    }
+    by_id[192]["stem"] += " [IMG:image296.jpeg]"
+    by_id[192]["option_images"] = {"A": ["image297.jpeg"], "C": ["image299.jpeg"]}
+    by_id[202]["option_images"] = {
+        "A": ["image317.png"], "B": ["image318.png"],
+        "C": ["image319.png"], "D": ["image320.png"],
+    }
+    return questions
+
 # ══════════════════════════════════════════════════════════
 # 数据加载
 # ══════════════════════════════════════════════════════════
@@ -30,7 +128,7 @@ def load_questions():
 @st.cache_data
 def load_pic_questions():
     with open(os.path.join(BASE_DIR, "questions_pic.json"), encoding="utf-8") as f:
-        return json.load(f)
+        return _repair_pic_question_images(json.load(f))
 
 ALL_BANKS = {"放疗综合题库": load_questions(), "公共图片题库": load_pic_questions()}
 
@@ -53,6 +151,37 @@ def normalize_bank_name(bank_name, q_key=None):
         if normalized in ALL_BANKS:
             return normalized
     return BANK_NAME_ALIASES.get(bank_name, bank_name)
+
+
+def find_question_source(q_key, info):
+    """定位错题对应的真实题库和当前原题，兼容 bank/q_key 都是虚拟题库名的旧记录。"""
+    bank = normalize_bank_name(info.get("bank", ""), q_key)
+    q_id = info.get("q_id")
+    if bank in ALL_BANKS and q_id is not None:
+        question = next((q for q in ALL_BANKS[bank] if q["id"] == q_id), None)
+        if question:
+            return bank, question
+
+    # 极早期版本会把 bank 和 q_key 同时保存成“错题库”。此时题号在两个题库
+    # 中可能重复，必须结合题干判断，不能仅凭 q_id 猜题库。
+    saved_stem = re.sub(r"\[IMG:[^\]]+\]", "", info.get("stem", "")).strip()
+    candidates = []
+    for candidate_bank, questions in ALL_BANKS.items():
+        for question in questions:
+            if question.get("id") != q_id:
+                continue
+            current_stem = re.sub(r"\[IMG:[^\]]+\]", "", question.get("stem", "")).strip()
+            score = SequenceMatcher(None, saved_stem, current_stem).ratio()
+            if info.get("answer") == question.get("answer"):
+                score += 0.1
+            if info.get("type") == question.get("type"):
+                score += 0.05
+            candidates.append((score, candidate_bank, question))
+
+    if candidates:
+        _, candidate_bank, question = max(candidates, key=lambda item: item[0])
+        return candidate_bank, question
+    return bank, None
 
 PARTS_MAP = {
     "放疗综合题库": ["全部", "电离辐射安全与防护基础", "核技术利用辐射安全法律法规", "专业实务"],
@@ -281,11 +410,7 @@ def _get_wrong_questions(username):
     wrong = um.load_wrong_cached(username)
     result = []
     for q_key, info in wrong.items():
-        bank = normalize_bank_name(info.get("bank", ""), q_key)
-        q_id = info.get("q_id")
-        orig_q = None
-        if bank in ALL_BANKS and q_id is not None:
-            orig_q = next((q for q in ALL_BANKS[bank] if q["id"] == q_id), None)
+        bank, orig_q = find_question_source(q_key, info)
         if orig_q:
             q_copy = dict(orig_q)
             q_copy["_orig_bank"] = bank
@@ -468,7 +593,13 @@ def page_practice(username, bank_name, filtered):
     wrong = um.load_wrong_cached(username)
     is_wrong_bank = (bank_name == "错题库")
     show_wrong_first = st.checkbox("优先显示错题", value=False, disabled=is_wrong_bank, key="_show_wrong_first_cb")
-    unanswered_only = st.checkbox("🔍 漏刷模式（仅显示未答题）", value=False, key="_unanswered_only_cb")
+    unanswered_only = st.checkbox(
+        "🔍 漏刷模式（仅显示未答题）", value=False,
+        disabled=is_wrong_bank, key="_unanswered_only_cb",
+    )
+    if is_wrong_bank:
+        # 错题库确认答案后必须保留当前题用于展示反馈，不能被漏刷模式过滤掉。
+        unanswered_only = False
     # 同步到 session_state 供 _build_pool 使用
     st.session_state._show_wrong_first = show_wrong_first
     st.session_state._unanswered_only = unanswered_only
@@ -535,11 +666,29 @@ def page_practice(username, bank_name, filtered):
                 )
                 if not is_correct:
                     um.add_wrong(username, q_key, render_bank, q, user_ans_str, q["answer"])
+                elif is_wrong_bank:
+                    # 先保留当前错题，确保 rerun 后仍停留在本题并显示答案；
+                    # 用户点击“下一题”时再真正移出错题库。
+                    st.session_state[f"{pfx}_pending_wrong_remove"] = q_key
                 else:
                     um.remove_wrong(username, q_key)
                 # 重新排序后，找到当前题目的新位置（保持在同一题查看反馈）
                 new_pool = _build_pool()
-                new_idx = next((i for i, q_item in enumerate(new_pool) if q_item["id"] == q["id"]), st.session_state.seq_idx)
+                if is_wrong_bank:
+                    # 两个实体题库都从 1 开始编号，错题库中可能同时存在相同 id；
+                    # 必须用原始错题 key 定位，不能只比较题号。
+                    new_idx = next(
+                        (i for i, q_item in enumerate(new_pool)
+                         if q_item.get("_wrong_key") == q_key),
+                        st.session_state.seq_idx,
+                    )
+                else:
+                    new_idx = next(
+                        (i for i, q_item in enumerate(new_pool)
+                         if q_item["id"] == q["id"]
+                         and q_item.get("_orig_bank", bank_name) == render_bank),
+                        st.session_state.seq_idx,
+                    )
                 st.session_state.seq_idx = new_idx
                 st.rerun()
             else:
@@ -547,7 +696,13 @@ def page_practice(username, bank_name, filtered):
     with col2:
         if st.button("⏭️ 下一题", key=f"{pfx}_next", use_container_width=True):
             _save_pos()
-            st.session_state.seq_idx += 1
+            pending_key = st.session_state.pop(f"{pfx}_pending_wrong_remove", None)
+            if pending_key:
+                # 当前题被移除后，下一题会自动补到当前索引；此时不能再 +1，
+                # 否则会额外跳过一道错题。
+                um.remove_wrong(username, pending_key)
+            else:
+                st.session_state.seq_idx += 1
             st.rerun()
     with col3:
         if st.button("💾 保存记录", key=f"{pfx}_save", use_container_width=True):
@@ -947,7 +1102,8 @@ def page_wrong_book(username):
 
     # 按题库筛选（兼容旧数据中 bank 被误存为虚拟题库名的情况）
     def _resolve_bank(q_key, info):
-        return normalize_bank_name(info.get("bank", ""), q_key)
+        bank, _ = find_question_source(q_key, info)
+        return bank
 
     banks_in_wrong = sorted(set(_resolve_bank(k, v) for k, v in wrong.items()))
     filter_bank = st.selectbox("筛选题库", ["全部"] + banks_in_wrong)
@@ -958,17 +1114,13 @@ def page_wrong_book(username):
     st.caption(f"共 **{len(items)}** 道错题")
 
     for idx, (q_key, info) in enumerate(items):
-        bank = normalize_bank_name(info.get("bank", ""), q_key)
+        bank, orig_q = find_question_source(q_key, info)
         q_id = info.get("q_id")
         type_label = "单选题" if info["type"] == "single" else "多选题"
         part_label = PART_SHORT.get(info.get("part", ""), info.get("part", ""))
         attempts = info.get("attempts", 1)
 
         # 优先从当前题库获取最新数据（题干+图片），避免快照与源数据不同步导致图片张冠李戴
-        orig_q = None
-        if bank in ALL_BANKS and q_id is not None:
-            orig_q = next((q for q in ALL_BANKS[bank] if q["id"] == q_id), None)
-
         if orig_q:
             stem_text = orig_q["stem"]
             opts = orig_q.get("options", {})
