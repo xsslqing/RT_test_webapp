@@ -493,6 +493,26 @@ def page_practice(username, bank_name, filtered):
     if answered_key not in st.session_state:
         st.session_state[answered_key] = False
 
+    # 从练习记录同步已答状态（跨会话/切题库后保持一致）
+    if q_key in answered and not st.session_state[answered_key]:
+        st.session_state[answered_key] = True
+        stored_ans = answered[q_key].get("user_ans", "")
+        st.session_state[f"{pfx}_user_ans"] = stored_ans.split(",") if stored_ans else None
+
+    # 清除未答题的残留选项状态（防止其他题目用过的 widget key 串扰）
+    if not st.session_state[answered_key]:
+        if q["type"] == "single":
+            radio_key = f"{pfx}_radio"
+            if radio_key in st.session_state:
+                del st.session_state[radio_key]
+        else:
+            for opt_k in sorted(set(list(q.get("options", {}).keys()) + list(q.get("option_images", {}).keys()))):
+                ck = f"{pfx}_{opt_k}"
+                if ck in st.session_state:
+                    del st.session_state[ck]
+        if f"{pfx}_user_ans" in st.session_state:
+            del st.session_state[f"{pfx}_user_ans"]
+
     user_ans = render_options(q, pfx, disabled=st.session_state[answered_key],
                               user_answer=st.session_state.get(f"{pfx}_user_ans"),
                               bank_name=render_bank)
