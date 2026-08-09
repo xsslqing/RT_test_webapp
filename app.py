@@ -470,10 +470,10 @@ def page_practice(username, bank_name, filtered):
         st.session_state.seq_idx = 0
 
     q = pool[st.session_state.seq_idx]
-    pfx = f"prac_{bank_name}_{q['id']}"
     render_bank = q.get("_orig_bank", bank_name)
-    # 虚拟题库（错题库/收藏夹）模式下，用原始题库名作为存储键
+    # widget key 用原始题库名隔离不同题库同 ID 题目；存储 key 同理
     _key_bank = render_bank if bank_name in ("错题库", "收藏夹") else bank_name
+    pfx = f"prac_{_key_bank}_{q['id']}"
     q_key = f"{_key_bank}:{q['id']}"
 
     type_label = "单选题" if q["type"] == "single" else "多选题"
@@ -492,20 +492,6 @@ def page_practice(username, bank_name, filtered):
     answered_key = f"{pfx}_answered"
     if answered_key not in st.session_state:
         st.session_state[answered_key] = False
-
-    # 清除未答题的残留选项状态（防止切题后 radio/checkbox 旧选择串扰）
-    if not st.session_state[answered_key]:
-        if q["type"] == "single":
-            radio_key = f"{pfx}_radio"
-            if radio_key in st.session_state:
-                del st.session_state[radio_key]
-        else:
-            for opt_k in sorted(set(list(q.get("options", {}).keys()) + list(q.get("option_images", {}).keys()))):
-                ck = f"{pfx}_{opt_k}"
-                if ck in st.session_state:
-                    del st.session_state[ck]
-        if f"{pfx}_user_ans" in st.session_state:
-            del st.session_state[f"{pfx}_user_ans"]
 
     user_ans = render_options(q, pfx, disabled=st.session_state[answered_key],
                               user_answer=st.session_state.get(f"{pfx}_user_ans"),
