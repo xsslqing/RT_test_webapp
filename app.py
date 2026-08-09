@@ -407,7 +407,7 @@ def page_practice(username, bank_name, filtered):
             pool = filtered
 
         if unanswered_only:
-            if is_favorite_bank:
+            if is_favorite_bank or is_wrong_bank:
                 answered_ids = set()
                 for b in ALL_BANKS:
                     answered_ids |= _get_answered_ids(username, b)
@@ -415,7 +415,7 @@ def page_practice(username, bank_name, filtered):
                 answered_ids = _get_answered_ids(username, bank_name)
             pool = [q for q in pool if q["id"] not in answered_ids]
         else:
-            if is_favorite_bank:
+            if is_favorite_bank or is_wrong_bank:
                 answered_ids = set()
                 for b in ALL_BANKS:
                     answered_ids |= _get_answered_ids(username, b)
@@ -934,17 +934,33 @@ def page_wrong_book(username):
 
     for idx, (q_key, info) in enumerate(items):
         bank = info["bank"]
+        q_id = info.get("q_id")
         type_label = "单选题" if info["type"] == "single" else "多选题"
         part_label = PART_SHORT.get(info.get("part", ""), info.get("part", ""))
         attempts = info.get("attempts", 1)
 
-        with st.expander(f"{idx+1}. [编号:{info.get('q_id', '?')}] [{type_label}] [{bank}] {info['stem'][:50]}... (错{attempts}次)"):
-            render_stem_images(info["stem"], bank_name=bank)
-            if info.get("options"):
-                for k, v in sorted(info["options"].items()):
+        # 优先从当前题库获取最新数据（题干+图片），避免快照与源数据不同步导致图片张冠李戴
+        orig_q = None
+        if bank in ALL_BANKS and q_id is not None:
+            orig_q = next((q for q in ALL_BANKS[bank] if q["id"] == q_id), None)
+
+        if orig_q:
+            stem_text = orig_q["stem"]
+            opts = orig_q.get("options", {})
+            opt_imgs = orig_q.get("option_images", {})
+        else:
+            # 降级：题目已从源题库删除，使用存储时的快照
+            stem_text = info["stem"]
+            opts = info.get("options", {})
+            opt_imgs = info.get("option_images", {})
+
+        with st.expander(f"{idx+1}. [编号:{q_id or '?'}] [{type_label}] [{bank}] {stem_text[:50]}... (错{attempts}次)"):
+            render_stem_images(stem_text, bank_name=bank)
+            if opts:
+                for k, v in sorted(opts.items()):
                     st.write(f"{k}、{v}")
-                if info.get("option_images"):
-                    for k, imgs in info["option_images"].items():
+                if opt_imgs:
+                    for k, imgs in opt_imgs.items():
                         for img_name in imgs:
                             show_image(img_name, width=150, bank_name=bank)
             st.write(f"**你的答案：** {info.get('user_ans', '未知')}")
