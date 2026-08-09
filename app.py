@@ -472,8 +472,8 @@ def page_practice(username, bank_name, filtered):
     q = pool[st.session_state.seq_idx]
     pfx = f"prac_{bank_name}_{q['id']}"
     render_bank = q.get("_orig_bank", bank_name)
-    # 收藏夹模式下，用原始题库名作为存储键（练习记录/错题/收藏统一）
-    _key_bank = render_bank if bank_name == "收藏夹" else bank_name
+    # 虚拟题库（错题库/收藏夹）模式下，用原始题库名作为存储键
+    _key_bank = render_bank if bank_name in ("错题库", "收藏夹") else bank_name
     q_key = f"{_key_bank}:{q['id']}"
 
     type_label = "单选题" if q["type"] == "single" else "多选题"
