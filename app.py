@@ -34,6 +34,26 @@ def load_pic_questions():
 
 ALL_BANKS = {"放疗综合题库": load_questions(), "公共图片题库": load_pic_questions()}
 
+# 题库曾经使用过较短的名称。用户历史记录仍可能保存这些旧名称；如果不先
+# 归一化，“图片题库”的图片会被误送到普通 images 目录，而两个目录存在
+# 大量同名文件，最终表现为图片可以显示、内容却与题目完全无关。
+BANK_NAME_ALIASES = {
+    "综合题库": "放疗综合题库",
+    "图片题库": "公共图片题库",
+}
+
+
+def normalize_bank_name(bank_name, q_key=None):
+    """将历史题库名转换为当前名称，必要时从持久化 key 恢复题库名。"""
+    candidates = [bank_name]
+    if q_key and ":" in q_key:
+        candidates.append(q_key.rsplit(":", 1)[0])
+    for candidate in candidates:
+        normalized = BANK_NAME_ALIASES.get(candidate, candidate)
+        if normalized in ALL_BANKS:
+            return normalized
+    return BANK_NAME_ALIASES.get(bank_name, bank_name)
+
 PARTS_MAP = {
     "放疗综合题库": ["全部", "电离辐射安全与防护基础", "核技术利用辐射安全法律法规", "专业实务"],
     "公共图片题库": ["全部", "图片题-电离辐射安全与防护基础"],
@@ -130,6 +150,7 @@ div[data-testid="stRadio"] > div[role="radiogroup"] > label > div:first-child {
 # 图片 / 题目渲染辅助
 # ══════════════════════════════════════════════════════════
 def get_img_dir(bank_name):
+    bank_name = normalize_bank_name(bank_name)
     return IMG_PIC_DIR if bank_name == "公共图片题库" else IMG_DIR
 
 def show_image(img_name, width=300, bank_name="放疗综合题库"):
@@ -260,7 +281,7 @@ def _get_wrong_questions(username):
     wrong = um.load_wrong_cached(username)
     result = []
     for q_key, info in wrong.items():
-        bank = info.get("bank", "")
+        bank = normalize_bank_name(info.get("bank", ""), q_key)
         q_id = info.get("q_id")
         orig_q = None
         if bank in ALL_BANKS and q_id is not None:
@@ -268,6 +289,7 @@ def _get_wrong_questions(username):
         if orig_q:
             q_copy = dict(orig_q)
             q_copy["_orig_bank"] = bank
+            q_copy["_wrong_key"] = q_key
             result.append(q_copy)
     return result
 
@@ -277,7 +299,7 @@ def _get_favorite_questions(username):
     favorites = um.load_favorites_cached(username)
     result = []
     for q_key, info in favorites.items():
-        bank = info.get("bank", "")
+        bank = normalize_bank_name(info.get("bank", ""), q_key)
         q_id = info.get("q_id")
         orig_q = None
         if bank in ALL_BANKS and q_id is not None:
@@ -474,7 +496,7 @@ def page_practice(username, bank_name, filtered):
     # widget key 用原始题库名隔离不同题库同 ID 题目；存储 key 同理
     _key_bank = render_bank if bank_name in ("错题库", "收藏夹") else bank_name
     pfx = f"prac_{_key_bank}_{q['id']}"
-    q_key = f"{_key_bank}:{q['id']}"
+    q_key = q.get("_wrong_key", f"{_key_bank}:{q['id']}") if is_wrong_bank else f"{_key_bank}:{q['id']}"
 
     type_label = "单选题" if q["type"] == "single" else "多选题"
     part_label = PART_SHORT.get(q["part"], q["part"])
@@ -923,17 +945,20 @@ def page_wrong_book(username):
         st.info("错题本为空，继续加油！")
         return
 
-    # 按题库筛选
-    banks_in_wrong = sorted(set(v["bank"] for v in wrong.values()))
+    # 按题库筛选（兼容旧数据中 bank 被误存为虚拟题库名的情况）
+    def _resolve_bank(q_key, info):
+        return normalize_bank_name(info.get("bank", ""), q_key)
+
+    banks_in_wrong = sorted(set(_resolve_bank(k, v) for k, v in wrong.items()))
     filter_bank = st.selectbox("筛选题库", ["全部"] + banks_in_wrong)
 
-    items = [(k, v) for k, v in wrong.items() if filter_bank == "全部" or v["bank"] == filter_bank]
+    items = [(k, v) for k, v in wrong.items() if filter_bank == "全部" or _resolve_bank(k, v) == filter_bank]
     items.sort(key=lambda x: x[1].get("last_wrong", ""), reverse=True)
 
     st.caption(f"共 **{len(items)}** 道错题")
 
     for idx, (q_key, info) in enumerate(items):
-        bank = info["bank"]
+        bank = normalize_bank_name(info.get("bank", ""), q_key)
         q_id = info.get("q_id")
         type_label = "单选题" if info["type"] == "single" else "多选题"
         part_label = PART_SHORT.get(info.get("part", ""), info.get("part", ""))
