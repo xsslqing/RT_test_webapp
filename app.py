@@ -272,6 +272,23 @@ def _get_wrong_questions(username):
     return result
 
 
+def _get_favorite_questions(username):
+    """从用户收藏夹重建题目列表，每题附带 _orig_bank 用于图片渲染。"""
+    favorites = um.load_favorites_cached(username)
+    result = []
+    for q_key, info in favorites.items():
+        bank = info.get("bank", "")
+        q_id = info.get("q_id")
+        orig_q = None
+        if bank in ALL_BANKS and q_id is not None:
+            orig_q = next((q for q in ALL_BANKS[bank] if q["id"] == q_id), None)
+        if orig_q:
+            q_copy = dict(orig_q)
+            q_copy["_orig_bank"] = bank
+            result.append(q_copy)
+    return result
+
+
 def _get_answered_ids(username: str, bank_name: str) -> set:
     """返回指定题库中已回答的题目 ID 集合。"""
     practice = um.load_practice_cached(username)
@@ -357,10 +374,29 @@ def page_practice(username, bank_name, filtered):
         """根据当前筛选条件构建题目列表（含未刷题优先排序）。"""
         wrong = um.load_wrong_cached(username)
         is_wrong_bank = (bank_name == "错题库")
+        is_favorite_bank = (bank_name == "收藏夹")
         show_wrong_first = st.session_state.get("_show_wrong_first", False)
         unanswered_only = st.session_state.get("_unanswered_only", False)
 
-        if not is_wrong_bank and show_wrong_first:
+        if is_wrong_bank:
+            # 错题库：重新从缓存获取最新的错题列表
+            pool = _get_wrong_questions(username)
+            # 应用题型筛选
+            q_type_filter = st.session_state.get("sel_qtype", "全部")
+            if q_type_filter == "单选题":
+                pool = [q for q in pool if q["type"] == "single"]
+            elif q_type_filter == "多选题":
+                pool = [q for q in pool if q["type"] == "multiple"]
+        elif is_favorite_bank:
+            # 收藏夹：重新从缓存获取最新的收藏列表
+            pool = _get_favorite_questions(username)
+            # 应用题型筛选
+            q_type_filter = st.session_state.get("sel_qtype", "全部")
+            if q_type_filter == "单选题":
+                pool = [q for q in pool if q["type"] == "single"]
+            elif q_type_filter == "多选题":
+                pool = [q for q in pool if q["type"] == "multiple"]
+        elif show_wrong_first:
             bank_prefix = f"{bank_name}:"
             wrong_in_bank = [k for k in wrong if k.startswith(bank_prefix)]
             wrong_ids = {int(k.split(":")[1]) for k in wrong_in_bank}
@@ -371,10 +407,20 @@ def page_practice(username, bank_name, filtered):
             pool = filtered
 
         if unanswered_only:
-            answered_ids = _get_answered_ids(username, bank_name)
+            if is_favorite_bank:
+                answered_ids = set()
+                for b in ALL_BANKS:
+                    answered_ids |= _get_answered_ids(username, b)
+            else:
+                answered_ids = _get_answered_ids(username, bank_name)
             pool = [q for q in pool if q["id"] not in answered_ids]
         else:
-            answered_ids = _get_answered_ids(username, bank_name)
+            if is_favorite_bank:
+                answered_ids = set()
+                for b in ALL_BANKS:
+                    answered_ids |= _get_answered_ids(username, b)
+            else:
+                answered_ids = _get_answered_ids(username, bank_name)
             pool = _sort_unanswered_first(pool, answered_ids)
 
         return pool
@@ -424,16 +470,21 @@ def page_practice(username, bank_name, filtered):
         st.session_state.seq_idx = 0
 
     q = pool[st.session_state.seq_idx]
-    q_key = f"{bank_name}:{q['id']}"
     pfx = f"prac_{bank_name}_{q['id']}"
     render_bank = q.get("_orig_bank", bank_name)
+    # 收藏夹模式下，用原始题库名作为存储键（练习记录/错题/收藏统一）
+    _key_bank = render_bank if bank_name == "收藏夹" else bank_name
+    q_key = f"{_key_bank}:{q['id']}"
 
     type_label = "单选题" if q["type"] == "single" else "多选题"
     part_label = PART_SHORT.get(q["part"], q["part"])
     # 统计已答题数
     practice = um.load_practice_cached(username)
     answered = practice.get("answered", {})
-    answered_in_pool = sum(1 for q_item in pool if f"{bank_name}:{q_item['id']}" in answered)
+    answered_in_pool = sum(
+        1 for q_item in pool
+        if f"{q_item.get('_orig_bank', bank_name)}:{q_item['id']}" in answered
+    )
     st.markdown(f"**题库编号: {q['id']}** | {part_label} | {type_label} | 进度: 已答 {answered_in_pool}/{len(pool)}")
 
     render_stem_images(q["stem"], bank_name=render_bank)
@@ -457,11 +508,11 @@ def page_practice(username, bank_name, filtered):
                 user_ans_str = ",".join(sorted(user_ans))
                 is_correct = user_ans_str == q["answer"]
                 um.record_practice_answer(
-                    username, q_key, bank_name, q["id"], q.get("num", q["id"]),
+                    username, q_key, render_bank, q["id"], q.get("num", q["id"]),
                     q["type"], q["part"], user_ans_str, q["answer"], is_correct
                 )
                 if not is_correct:
-                    um.add_wrong(username, q_key, bank_name, q, user_ans_str, q["answer"])
+                    um.add_wrong(username, q_key, render_bank, q, user_ans_str, q["answer"])
                 else:
                     um.remove_wrong(username, q_key)
                 # 重新排序后，找到当前题目的新位置（保持在同一题查看反馈）
@@ -493,6 +544,26 @@ def page_practice(username, bank_name, filtered):
     # 纠错备注
     render_correction(q_key, username)
 
+    # 收藏按钮
+    favorites = um.load_favorites_cached(username)
+    is_favorited = q_key in favorites
+    fav_col1, fav_col2, fav_col3 = st.columns([1, 1, 2])
+    with fav_col1:
+        if st.button(
+            "★ 已收藏" if is_favorited else "☆ 收藏本题",
+            key=f"{pfx}_fav",
+            type="primary" if is_favorited else "secondary",
+            use_container_width=True,
+        ):
+            if is_favorited:
+                um.remove_favorite(username, q_key)
+            else:
+                um.add_favorite(
+                    username, q_key, render_bank, q["id"], q["type"],
+                    q["part"], q.get("stem", "")[:100],
+                )
+            st.rerun()
+
     # 导航（移动端友好）
     st.markdown("---")
     nav_left, nav_right = st.columns([1, 2])
@@ -516,7 +587,10 @@ def page_practice(username, bank_name, filtered):
     st.caption(f"当前第 {st.session_state.seq_idx + 1} 题 / 共 {len(pool)} 题")
 
     # 统计已答题数（供进度网格使用）
-    answered_in_pool = sum(1 for q_item in pool if f"{bank_name}:{q_item['id']}" in answered)
+    answered_in_pool = sum(
+        1 for q_item in pool
+        if f"{q_item.get('_orig_bank', bank_name)}:{q_item['id']}" in answered
+    )
 
     # 答题进度网格
     with st.expander(f"📋 答题进度（已答 {answered_in_pool}/{len(pool)}）", expanded=False):
@@ -530,7 +604,7 @@ def page_practice(username, bank_name, filtered):
                 if idx >= len(pool):
                     break
                 q = pool[idx]
-                q_key = f"{bank_name}:{q['id']}"
+                q_key = f"{q.get('_orig_bank', bank_name)}:{q['id']}"
                 is_current = idx == st.session_state.get("seq_idx", 0)
                 is_answered = q_key in answered
                 label = f"•{idx + 1}" if is_current else str(idx + 1)
@@ -1215,7 +1289,7 @@ def _render_controls(username, is_admin=False):
     filtered = None
 
     if page in ("顺序刷题", "错题本"):
-        bank_options = ["放疗综合题库", "公共图片题库", "错题库"] if page == "顺序刷题" else ["放疗综合题库", "公共图片题库"]
+        bank_options = ["放疗综合题库", "公共图片题库", "错题库", "收藏夹"] if page == "顺序刷题" else ["放疗综合题库", "公共图片题库"]
         selected_bank = st.radio("请选择题库（下面两个主要题库都要刷）", bank_options, horizontal=True, key="bank_selector")
         st.session_state["bank_name"] = selected_bank
 
@@ -1229,6 +1303,15 @@ def _render_controls(username, is_admin=False):
                 elif q_type_filter == "多选题":
                     filtered = [q for q in filtered if q["type"] == "multiple"]
                 st.caption(f"错题库：**{len(filtered)}** 题")
+            elif selected_bank == "收藏夹":
+                fav_qs = _get_favorite_questions(username)
+                q_type_filter = st.radio("题型", ["全部", "单选题", "多选题"], horizontal=True, key="sel_qtype")
+                filtered = fav_qs
+                if q_type_filter == "单选题":
+                    filtered = [q for q in filtered if q["type"] == "single"]
+                elif q_type_filter == "多选题":
+                    filtered = [q for q in filtered if q["type"] == "multiple"]
+                st.caption(f"收藏夹：**{len(filtered)}** 题")
             else:
                 questions = ALL_BANKS[selected_bank]
                 PARTS = PARTS_MAP[selected_bank]
@@ -1247,6 +1330,8 @@ def _render_controls(username, is_admin=False):
 
     wrong = um.load_wrong_cached(username)
     st.caption(f"错题本：**{len(wrong)}** 题")
+    favorites = um.load_favorites_cached(username)
+    st.caption(f"收藏夹：**{len(favorites)}** 题")
     st.markdown("---")
 
     return filtered
@@ -1279,7 +1364,7 @@ def main():
         pos = um.load_practice_position(username)
         if pos:
             restored_bank = pos.get("bank", "放疗综合题库")
-            valid_banks = set(ALL_BANKS.keys()) | {"错题库"}
+            valid_banks = set(ALL_BANKS.keys()) | {"错题库", "收藏夹"}
             if restored_bank not in valid_banks:
                 restored_bank = "放疗综合题库"
             restored_part = pos.get("part", "全部")

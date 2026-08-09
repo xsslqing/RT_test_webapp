@@ -242,7 +242,7 @@ def _load_user_data(username: str) -> dict[str, Any]:
 
 
 def _save_field(username: str, field: str, value: Any) -> None:
-    if field not in {"practice", "exams", "wrong"}:
+    if field not in {"practice", "exams", "wrong", "favorites"}:
         raise ValueError("不允许写入该字段")
 
     (
@@ -463,6 +463,51 @@ def remove_wrong(username: str, q_key: str) -> None:
 
 def clear_wrong(username: str) -> None:
     save_wrong(username, {})
+
+
+# ── Favorites ──────────────────────────────────────────────
+
+def load_favorites(username: str) -> dict:
+    return _load_user_data(username).get("favorites", {})
+
+
+def save_favorites(username: str, data: dict) -> None:
+    _save_field(username, "favorites", data)
+
+
+def load_favorites_cached(username: str) -> dict:
+    """从 session_state 缓存读取 favorites，缓存未命中才查数据库。"""
+    cache = _get_cached_data(username)
+    if cache is not None:
+        return cache.get("favorites", {})
+    data = _load_user_data(username)
+    _set_cached_data(username, data)
+    return data.get("favorites", {})
+
+
+def add_favorite(username: str, q_key: str, bank: str, q_id: int, q_type: str, part: str, stem: str) -> None:
+    """收藏一道题目。"""
+    favorites = load_favorites_cached(username)
+    favorites[q_key] = {
+        "bank": bank,
+        "q_id": q_id,
+        "type": q_type,
+        "part": part,
+        "stem": stem[:100],  # 只保存题干前100字符用于显示
+        "added_at": _now(),
+    }
+    save_favorites(username, favorites)
+
+
+def remove_favorite(username: str, q_key: str) -> None:
+    """取消收藏一道题目。"""
+    favorites = load_favorites_cached(username)
+    favorites.pop(q_key, None)
+    save_favorites(username, favorites)
+
+
+def clear_favorites(username: str) -> None:
+    save_favorites(username, {})
 
 
 # ── Leaderboard ─────────────────────────────────────────────
