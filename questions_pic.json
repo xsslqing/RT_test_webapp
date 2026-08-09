@@ -259,7 +259,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 18,
-    "stem": "下图中的高纯锗探测器属于（）。 l0 [IMG:image17.jpeg]",
+    "stem": "下图中的高纯锗探测器属于（）。",
     "options": {
       "A": "气体探测器",
       "B": "闪烁体探测器",
@@ -394,14 +394,21 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 27,
-    "stem": "根据联合国原子辐射效应科学委员会（UNSCEAR）的统计，各种人工辐射照射来源所致公众辐射剂量的全球平均值中，最高的是（）。 医疗照射 [IMG:image26.png]",
+    "stem": "根据联合国原子辐射效应科学委员会（UNSCEAR）的统计，各种人工辐射照射来源所致公众辐射剂量的全球平均值中，最高的是（）。",
     "options": {
-      "B": "大气核试验 切尔诺贝利事故",
-      "D": "核燃料循环"
+      "B": "大气核试验",
+      "D": "核燃料循环",
+      "A": "医疗照射",
+      "C": "切尔诺贝利事故"
     },
     "option_images": {
+      "A": [
+        "image26.png"
+      ],
       "B": [
-        "image27.png",
+        "image27.png"
+      ],
+      "C": [
         "image28.png"
       ],
       "D": [
@@ -617,20 +624,7 @@
       "C": "",
       "D": ""
     },
-    "option_images": {
-      "A": [
-        "image43.jpeg"
-      ],
-      "B": [
-        "image44.jpeg"
-      ],
-      "C": [
-        "image45.jpeg"
-      ],
-      "D": [
-        "image46.jpeg"
-      ]
-    },
+    "option_images": {},
     "answer": "C"
   },
   {
@@ -715,22 +709,12 @@
     "num": 47,
     "stem": "种系的演化程度越高，机体结构越复杂，对辐射的敏感性越高。下列不同种系生物死亡所需的吸收剂量最高的是（）。",
     "options": {
-      "A": "病毒",
+      "A": "",
       "B": "鼠",
-      "C": "大肠杆菌",
-      "D": "人"
+      "C": "",
+      "D": ""
     },
-    "option_images": {
-      "A": [
-        "image52.jpeg"
-      ],
-      "B": [
-        "image53.jpeg"
-      ],
-      "C": [
-        "image54.jpeg"
-      ]
-    },
+    "option_images": {},
     "answer": "A"
   },
   {
@@ -738,7 +722,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 48,
-    "stem": "种系的演化程度越高，机体结构越复杂，对辐射的敏感性越高。下列不同种系生物死亡所需的吸收剂量最高的是（）。 [IMG:image55.jpeg] [IMG:image56.jpeg]",
+    "stem": "种系的演化程度越高，机体结构越复杂，对辐射的敏感性越高。下列不同种系生物死亡所需的吸收剂量最高的是（）。",
     "options": {
       "A": "龟",
       "B": "猴",
@@ -746,11 +730,14 @@
       "D": "鼠"
     },
     "option_images": {
+      "A": [
+        "image56.jpeg"
+      ],
       "B": [
-        "image53.jpeg"
+        "image57.jpeg"
       ],
       "C": [
-        "image57.jpeg"
+        "image54.jpeg"
       ],
       "D": [
         "image58.jpeg"
@@ -771,11 +758,17 @@
       "D": "角膜"
     },
     "option_images": {
-      "B": [
+      "A": [
         "image59.jpeg"
       ],
+      "B": [
+        "image60.png"
+      ],
       "C": [
-        "image60.jpeg"
+        "image61.jpeg"
+      ],
+      "D": [
+        "image62.jpeg"
       ]
     },
     "answer": "B"
@@ -785,7 +778,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 50,
-    "stem": "当量剂量的国际标准单位为焦耳每千克，专用名称以（）的名字命名的，用符号Sv 表示。 [IMG:image61.jpeg]",
+    "stem": "当量剂量的国际标准单位为焦耳每千克，专用名称以（）的名字命名的，用符号Sv 表示。",
     "options": {
       "A": "戈瑞",
       "B": "希沃特",
@@ -794,13 +787,16 @@
     },
     "option_images": {
       "A": [
-        "image62.jpeg"
-      ],
-      "B": [
         "image63.jpeg"
       ],
-      "C": [
+      "B": [
         "image64.jpeg"
+      ],
+      "C": [
+        "image65.jpeg"
+      ],
+      "D": [
+        "image66.jpeg"
       ]
     },
     "answer": "B"
@@ -810,7 +806,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 51,
-    "stem": "吸收剂量的国际标准单位为焦耳每千克，专用名称以（）的名字命名的，用符号Gy 表示。 [IMG:image65.jpeg]",
+    "stem": "吸收剂量的国际标准单位为焦耳每千克，专用名称以（）的名字命名的，用符号Gy 表示。",
     "options": {
       "A": "戈瑞",
       "B": "伦琴",
@@ -819,13 +815,16 @@
     },
     "option_images": {
       "A": [
-        "image66.jpeg"
+        "image67.jpeg"
       ],
       "B": [
-        "image63.jpeg"
+        "image68.jpeg"
       ],
       "C": [
-        "image64.jpeg"
+        "image65.jpeg"
+      ],
+      "D": [
+        "image66.jpeg"
       ]
     },
     "answer": "A"
@@ -835,7 +834,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 52,
-    "stem": "根据效应与照射剂量的关系，ICRP 将电离辐射生物效应进行了分类，下图中所表示的关系属于（）。 [IMG:image67.jpeg]",
+    "stem": "根据效应与照射剂量的关系，ICRP 将电离辐射生物效应进行了分类，下图中所表示的关系属于（）。 [IMG:image69.jpeg]",
     "options": {
       "A": "确定性效应",
       "B": "随机性效应",
@@ -850,7 +849,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 53,
-    "stem": "如图所示 β 能谱，以下说法错误的是（）。 [IMG:image68.png]",
+    "stem": "如图所示 β 能谱，以下说法错误的是（）。 [IMG:image70.png]",
     "options": {
       "A": "β 射线的能量连续分布",
       "B": "有一个确定的最大能量值",
@@ -880,7 +879,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 55,
-    "stem": "在如下图所示的衰变纲图中，衰变方式 d 属于（）衰变。 γ [IMG:image69.png]",
+    "stem": "在如下图所示的衰变纲图中，衰变方式 d 属于（）衰变。 [IMG:image71.png]",
     "options": {
       "A": "α 衰变",
       "B": "β+衰变",
@@ -895,11 +894,11 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 56,
-    "stem": "在如下图所示的衰变纲图中，衰变方式 c 属于（）衰变。 [IMG:image2.png] [IMG:image69.png]",
+    "stem": "在如下图所示的衰变纲图中，衰变方式 c 属于（）衰变。 [IMG:image2.png]",
     "options": {
       "A": "α 衰变",
-      "B": "β+衰变",
-      "C": "β-衰变",
+      "B": "β+ 衰变",
+      "C": "β- 衰变",
       "D": "γ 衰变"
     },
     "option_images": {},
@@ -910,7 +909,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 57,
-    "stem": "在如下图所示的衰变纲图中，衰变方式 b 属于（）衰变。+ -",
+    "stem": "在如下图所示的衰变纲图中，衰变方式 b 属于（）衰变。 [IMG:image71.png]",
     "options": {
       "A": "α 衰变",
       "B": "β+衰变",
@@ -955,7 +954,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 60,
-    "stem": "在如下图所示的衰变纲图中，衰变方式 B 属于（）衰变。",
+    "stem": "在如下图所示的衰变纲图中，衰变方式 B 属于（）衰变。 [IMG:image72.png]",
     "options": {
       "A": "α 衰变",
       "B": "β+衰变",
@@ -970,7 +969,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 61,
-    "stem": "在如下图所示的衰变纲图中，衰变方式 A 属于（）衰变。 [IMG:image70.png]",
+    "stem": "在如下图所示的衰变纲图中，衰变方式 A 属于（）衰变。 [IMG:image73.png]",
     "options": {
       "A": "α 衰变",
       "B": "β+衰变",
@@ -985,7 +984,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 62,
-    "stem": "如图所示原子中电子的壳层结构，其中最多可以容纳 8 个电子数为（）层。 [IMG:image71.jpeg]",
+    "stem": "如图所示原子中电子的壳层结构，其中最多可以容纳 8 个电子数为（）层。 [IMG:image74.jpeg]",
     "options": {
       "A": "K",
       "B": "L",
@@ -1000,7 +999,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 63,
-    "stem": "如图所示原子中电子的壳层结构，其中最多可以容纳 2 个电子数为（）层。 [IMG:image71.jpeg]",
+    "stem": "如图所示原子中电子的壳层结构，其中最多可以容纳 2 个电子数为（）层。 [IMG:image74.jpeg]",
     "options": {
       "A": "K",
       "B": "L",
@@ -1015,7 +1014,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 64,
-    "stem": "从下图中看出，对于中能 γ 射线和原子序数低的吸收物质，（）占有优势。 [IMG:image72.png]",
+    "stem": "从下图中看出，对于中能 γ 射线和原子序数低的吸收物质，（）占有优势。 [IMG:image75.png]",
     "options": {
       "A": "光电效应",
       "B": "康普顿效应",
@@ -1029,7 +1028,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 65,
-    "stem": "从下图中看出，对于低能 γ 射线和原子序数高的吸收物质（）占有优势。 [IMG:image73.png]",
+    "stem": "从下图中看出，对于低能 γ 射线和原子序数高的吸收物质（）占有优势。 [IMG:image76.png]",
     "options": {
       "A": "光电效应",
       "B": "康普顿效应",
@@ -1050,14 +1049,7 @@
       "C": "",
       "D": ""
     },
-    "option_images": {
-      "A": [
-        "image74.jpeg"
-      ],
-      "C": [
-        "image75.jpeg"
-      ]
-    },
+    "option_images": {},
     "answer": "D"
   },
   {
@@ -1072,20 +1064,7 @@
       "C": "",
       "D": ""
     },
-    "option_images": {
-      "A": [
-        "image76.jpeg"
-      ],
-      "B": [
-        "image77.jpeg"
-      ],
-      "C": [
-        "image78.jpeg"
-      ],
-      "D": [
-        "image79.jpeg"
-      ]
-    },
+    "option_images": {},
     "answer": "C"
   },
   {
@@ -1100,20 +1079,7 @@
       "C": "",
       "D": ""
     },
-    "option_images": {
-      "A": [
-        "image80.jpeg"
-      ],
-      "B": [
-        "image81.jpeg"
-      ],
-      "C": [
-        "image82.jpeg"
-      ],
-      "D": [
-        "image83.jpeg"
-      ]
-    },
+    "option_images": {},
     "answer": "A"
   },
   {
@@ -1121,7 +1087,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 69,
-    "stem": "实验发现，放射性核素 22286Ra 放出一个 α 粒子，变成 21484Po。下图是 22286Ra 衰变规律的曲线，由此可知，22286Ra 的数目减少一半需要（）天。 [IMG:image84.jpeg]",
+    "stem": "实验发现，放射性核素 222 86Ra 放出一个 α 粒子，变成 214 84Po。下图是 222 86Ra 衰变规律的曲线，由此可知，222 86Ra 的数目减少一半需要（）天。 [IMG:image89.jpeg]",
     "options": {
       "D": "12 天",
       "A": "2 天",
@@ -1136,7 +1102,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 70,
-    "stem": "下图所表示的物理过程是（）。 [IMG:image85.jpeg]",
+    "stem": "下图所表示的物理过程是（）。 [IMG:image90.jpeg]",
     "options": {
       "A": "光电效应",
       "B": "俄歇电子",
@@ -1151,7 +1117,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 71,
-    "stem": "下图所表示的物理过程是（）。 [IMG:image86.jpeg]",
+    "stem": "下图所表示的物理过程是（）。 [IMG:image91.jpeg]",
     "options": {
       "A": "光电效应",
       "B": "俄歇电子",
@@ -1166,7 +1132,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 72,
-    "stem": "下图所表示的物理过程是（）。 [IMG:image87.png]",
+    "stem": "下图所表示的物理过程是（）。 [IMG:image92.png]",
     "options": {
       "A": "光电效应",
       "B": "俄歇电子",
@@ -1181,12 +1147,12 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 73,
-    "stem": "如下原子结构示意图，正确的表示方法为（）。 [IMG:image88.jpeg]",
+    "stem": "如下原子结构示意图，正确的表示方法为（）。 [IMG:image93.jpeg]",
     "options": {
-      "A": "178O",
-      "B": "179O",
-      "C": "179F",
-      "D": "178F"
+      "A": "17 8O",
+      "B": "17 9O",
+      "C": "17 9F",
+      "D": "17 8F"
     },
     "option_images": {},
     "answer": "A"
@@ -1196,7 +1162,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 74,
-    "stem": "根据原子核比结合能曲线，以下原子核中结合得最松的是（）。 4l [IMG:image89.png]",
+    "stem": "根据原子核比结合能曲线，以下原子核中结合得最松的是（）。 [IMG:image94.png]",
     "options": {
       "A": "H",
       "B": "He",
@@ -1211,18 +1177,14 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 75,
-    "stem": "根据原子核比结合能曲线，以下原子核中结合得最紧的是（）。 [IMG:image90.png]",
+    "stem": "根据原子核比结合能曲线，以下原子核中结合得最紧的是（）。 [IMG:image95.png]",
     "options": {
       "A": "H",
       "B": "He",
       "C": "Li",
       "D": "Fe"
     },
-    "option_images": {
-      "D": [
-        "image91.jpeg"
-      ]
-    },
+    "option_images": {},
     "answer": "D"
   },
   {
@@ -1239,13 +1201,16 @@
     },
     "option_images": {
       "A": [
-        "image92.jpeg"
+        "image96.jpeg"
       ],
       "B": [
-        "image93.jpeg"
+        "image97.jpeg"
       ],
       "C": [
-        "image94.jpeg"
+        "image98.jpeg"
+      ],
+      "D": [
+        "image99.jpeg"
       ]
     },
     "answer": "A"
@@ -1255,19 +1220,22 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 77,
-    "stem": "1898 年，（）发现当铀发出射线后，可以神奇地转变为其他元素，其中一个元素命名为钋，另一个元素称为镭，即“发光的”元素。 [IMG:image95.jpeg] [IMG:image96.jpeg]",
+    "stem": "1898 年，（）发现当铀发出射线后，可以神奇地转变为其他元素，其中一个元素命名为钋，另一个元素称为镭，即“发光的”元素。",
     "options": {
       "A": "伦琴",
       "B": "贝克勒尔",
-      "C": "居里夫人",
+      "C": "",
       "D": "麦克斯韦"
     },
     "option_images": {
-      "B": [
-        "image97.jpeg"
+      "A": [
+        "image100.jpeg"
       ],
-      "C": [
-        "image98.jpeg"
+      "B": [
+        "image101.jpeg"
+      ],
+      "D": [
+        "image103.jpeg"
       ]
     },
     "answer": "C"
@@ -1277,7 +1245,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 78,
-    "stem": "下面碳原子结构示意图中，代表中子的是（）。 [IMG:image99.jpeg]",
+    "stem": "下面碳原子结构示意图中，代表中子的是（）。 [IMG:image104.jpeg]",
     "options": {
       "A": "a",
       "B": "b",
@@ -1292,7 +1260,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 79,
-    "stem": "下面碳原子结构示意图中，代表电子的是（）。 [IMG:image100.jpeg]",
+    "stem": "下面碳原子结构示意图中，代表电子的是（）。 [IMG:image105.jpeg]",
     "options": {
       "A": "a",
       "B": "b",
@@ -1307,7 +1275,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 80,
-    "stem": "下面碳原子结构示意图中，代表质子的是（）。 [IMG:image101.jpeg]",
+    "stem": "下面碳原子结构示意图中，代表质子的是（）。 [IMG:image106.jpeg]",
     "options": {
       "A": "a",
       "B": "b",
@@ -1322,7 +1290,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 81,
-    "stem": "下面碳原子结构示意图中，代表碳原子核的是（）。 [IMG:image102.jpeg]",
+    "stem": "下面碳原子结构示意图中，代表碳原子核的是（）。 [IMG:image107.jpeg]",
     "options": {
       "A": "a",
       "B": "b",
@@ -1344,20 +1312,7 @@
       "C": "",
       "D": ""
     },
-    "option_images": {
-      "A": [
-        "image103.jpeg"
-      ],
-      "B": [
-        "image104.jpeg"
-      ],
-      "C": [
-        "image105.jpeg"
-      ],
-      "D": [
-        "image106.jpeg"
-      ]
-    },
+    "option_images": {},
     "answer": "D"
   },
   {
@@ -1365,7 +1320,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 83,
-    "stem": "图中采取的是哪种内照射防护措施？（） [IMG:image107.png]",
+    "stem": "图中采取的是哪种内照射防护措施？（） [IMG:image112.png]",
     "options": {
       "D": "个人防护",
       "A": "包容",
@@ -1380,7 +1335,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 84,
-    "stem": "图中采取的是哪种内照射防护措施？（） [IMG:image108.png]",
+    "stem": "图中采取的是哪种内照射防护措施？（） [IMG:image113.png]",
     "options": {
       "A": "包容",
       "B": "隔离",
@@ -1395,7 +1350,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 85,
-    "stem": "图中是什么标志？（） [IMG:image109.png]",
+    "stem": "图中是什么标志？（） [IMG:image114.png]",
     "options": {
       "A": "电离辐射标志",
       "B": "电磁辐射标志",
@@ -1410,7 +1365,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 86,
-    "stem": "图中采取的是什么防护措施？（） [IMG:image110.png]",
+    "stem": "图中采取的是什么防护措施？（） [IMG:image115.png]",
     "options": {
       "A": "包容",
       "B": "隔离",
@@ -1425,7 +1380,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 87,
-    "stem": "本图采用的是何种外照射防护方法？（） [IMG:image111.png]",
+    "stem": "本图采用的是何种外照射防护方法？（） [IMG:image116.png]",
     "options": {
       "A": "时间防护",
       "B": "距离防护",
@@ -1440,7 +1395,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 88,
-    "stem": "该图表示的是哪种衰变？（） [IMG:image112.png]",
+    "stem": "该图表示的是哪种衰变？（） [IMG:image117.png]",
     "options": {
       "A": "α 衰变",
       "B": "β 衰变",
@@ -1455,7 +1410,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 89,
-    "stem": "该图表示的是哪种衰变？（） [IMG:image113.png]",
+    "stem": "该图表示的是哪种衰变？（） [IMG:image118.png]",
     "options": {
       "A": "α 衰变",
       "B": "β 衰变",
@@ -1470,7 +1425,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 90,
-    "stem": "该图表示的是哪种衰变？（） [IMG:image114.png]",
+    "stem": "该图表示的是哪种衰变？（） [IMG:image119.png]",
     "options": {
       "A": "α 衰变",
       "B": "β 衰变",
@@ -1485,7 +1440,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 91,
-    "stem": "原子核模型图中，哪种颜色的粒子代表中子？（） [IMG:image115.jpeg]",
+    "stem": "原子核模型图中，哪种颜色的粒子代表中子？（） [IMG:image120.jpeg]",
     "options": {
       "A": "红色",
       "B": "白色",
@@ -1500,7 +1455,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 92,
-    "stem": "原子核模型图中，表述电子的是哪种颜色的粒子？（） [IMG:image116.jpeg]",
+    "stem": "原子核模型图中，表述电子的是哪种颜色的粒子？（） [IMG:image121.jpeg]",
     "options": {
       "A": "红色",
       "B": "白色",
@@ -1515,7 +1470,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 93,
-    "stem": "原子核模型图中，原子核是哪种颜色的粒子？（） [IMG:image117.jpeg]",
+    "stem": "原子核模型图中，原子核是哪种颜色的粒子？（） [IMG:image122.jpeg]",
     "options": {
       "A": "红色和白色",
       "B": "白色和绿色",
@@ -1530,7 +1485,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "single",
     "num": 94,
-    "stem": "原子核模型图中，表述质子的是哪种颜色的粒子？（） [IMG:image118.jpeg]",
+    "stem": "原子核模型图中，表述质子的是哪种颜色的粒子？（） [IMG:image123.jpeg]",
     "options": {
       "A": "红色",
       "B": "白色",
@@ -1545,7 +1500,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 95,
-    "stem": "下表中列出了构成原子的各种粒子的特征，以下说法中正确的是（）。 [IMG:image119.jpeg]",
+    "stem": "下表中列出了构成原子的各种粒子的特征，以下说法中正确的是（）。 [IMG:image124.jpeg]",
     "options": {
       "A": "每个核外电子带有一个电子电荷的电量，极性为负。",
       "B": "每个质子也带有一个电子电荷的电量，极性为正。",
@@ -1560,7 +1515,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 96,
-    "stem": "下表中列出了构成原子的各种粒子的特征，以下说法中正确的是（）。 [IMG:image120.jpeg]",
+    "stem": "下表中列出了构成原子的各种粒子的特征，以下说法中正确的是（）。 [IMG:image125.jpeg]",
     "options": {
       "A": "整个原子呈现电中性。",
       "B": "1 电子电荷（e）=1.602×10-19C。",
@@ -1575,7 +1530,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 97,
-    "stem": "辐射灭菌是利用辐射杀死大多数物质上的微生物的一种有效方法，通过特定的方式控制微生物生长或杀死微生物。辐照灭菌属于（）。 [IMG:image121.jpeg]",
+    "stem": "辐射灭菌是利用辐射杀死大多数物质上的微生物的一种有效方法，通过特定的方式控制微生物生长或杀死微生物。辐照灭菌属于（）。 [IMG:image126.jpeg]",
     "options": {
       "A": "电离辐射",
       "B": "非电离辐射",
@@ -1590,7 +1545,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 98,
-    "stem": "宇宙射线是来自外太空的带电高能次原子粒子，它们可能会产生二次粒子穿透地球的大气层和表面。宇宙射线属于（）。 [IMG:image122.jpeg]",
+    "stem": "宇宙射线是来自外太空的带电高能次原子粒子，它们可能会产生二次粒子穿透地球的大气层和表面。宇宙射线属于（）。 [IMG:image127.jpeg]",
     "options": {
       "A": "电离辐射",
       "B": "非电离辐射",
@@ -1605,7 +1560,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 99,
-    "stem": "如下原子核模型图，表述正确的是（）。 [IMG:image123.jpeg]",
+    "stem": "如下原子核模型图，表述正确的是（）。 [IMG:image128.jpeg]",
     "options": {
       "A": "红色为质子",
       "B": "白色为中子",
@@ -1621,7 +1576,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 100,
-    "stem": "图片表述正确的是（）。 [IMG:image124.jpeg]",
+    "stem": "图片表述正确的是（）。 [IMG:image129.jpeg]",
     "options": {
       "A": "是同一种元素",
       "B": "是三种不同核素",
@@ -1637,7 +1592,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 101,
-    "stem": "活度随时间变化的关系图，正确的说法是（）。 [IMG:image125.png]",
+    "stem": "活度随时间变化的关系图，正确的说法是（）。 [IMG:image130.png]",
     "options": {
       "A": "衰变过程遵循明确的统计规律",
       "B": "经历时间越长，放射性衰变原子核减少的越多。",
@@ -1653,7 +1608,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 102,
-    "stem": "图片中关于伽马衰变表述正确的是（）。 [IMG:image126.png]",
+    "stem": "图片中关于伽马衰变表述正确的是（）。 [IMG:image131.png]",
     "options": {
       "A": "原子核能级跃迁退激时释放出的射线",
       "B": "波长较短的电磁波",
@@ -1669,7 +1624,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 103,
-    "stem": "图片中关于中子表述正确的是（）。 [IMG:image127.jpeg]",
+    "stem": "图片中关于中子表述正确的是（）。 [IMG:image132.jpeg]",
     "options": {
       "A": "由不稳定原子核发射出的中子",
       "B": "大多通过核裂变或核聚变产生",
@@ -1685,7 +1640,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 104,
-    "stem": "如果射线粒子能量相同，对于外照射屏蔽该图说法正确的是（）。 [IMG:image128.jpeg]",
+    "stem": "如果射线粒子能量相同，对于外照射屏蔽该图说法正确的是（）。 [IMG:image133.jpeg]",
     "options": {
       "A": "带电粒子穿透能力比不带电粒子弱",
       "B": "α 不需要屏蔽",
@@ -1701,7 +1656,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 105,
-    "stem": "图中告诉我们天然辐射源主要包括（）。 [IMG:image129.png]",
+    "stem": "图中告诉我们天然辐射源主要包括（）。 [IMG:image134.png]",
     "options": {
       "A": "宇宙射线",
       "B": "宇生放射性核素",
@@ -1717,7 +1672,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 106,
-    "stem": "图中采取的防护措施有（）。 [IMG:image130.png]",
+    "stem": "图中采取的防护措施有（）。 [IMG:image135.png]",
     "options": {
       "A": "时间防护",
       "B": "距离防护",
@@ -1733,7 +1688,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 107,
-    "stem": "如图所示照射方式可分为外照射、内照射和混合照射， 以下说法中正确的是（）。 [IMG:image131.jpeg]",
+    "stem": "如图所示照射方式可分为外照射、内照射和混合照射， 以下说法中正确的是（）。 [IMG:image136.jpeg]",
     "options": {
       "A": "外照射可以是单向照射或多向照射，后者的效应大于前者。",
       "B": "多向照射增强生物效应的原因是组织接受的照射剂量均匀。",
@@ -1748,7 +1703,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 108,
-    "stem": "下图是电离辐射生物效应中的确定性效应，关于确定性效应的观点正确的是（）。 [IMG:image132.png]",
+    "stem": "下图是电离辐射生物效应中的确定性效应，关于确定性效应的观点正确的是（）。 [IMG:image137.png]",
     "options": {
       "A": "发生严重程度和机率都随剂量变化而变化",
       "B": "即使剂量很小，也有可能发生效应",
@@ -1763,7 +1718,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 109,
-    "stem": "下图表示放射源全寿命期的管理包括哪些？（） [IMG:image133.png]",
+    "stem": "下图表示放射源全寿命期的管理包括哪些？（） [IMG:image138.png]",
     "options": {
       "A": "进口审批和备案",
       "B": "转让的审批与备案",
@@ -1779,12 +1734,12 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 110,
-    "stem": "图片中的人不应当采取的做法是（）。 [IMG:image134.jpeg]",
+    "stem": "图片中的人不应当采取的做法是（）。 [IMG:image139.jpeg]",
     "options": {
       "A": "远离",
       "B": "搬离",
       "C": "当废品卖掉",
-      "D": "拆卸 6l",
+      "D": "拆卸",
       "E": "报告当地生态环境部门"
     },
     "option_images": {},
@@ -1795,7 +1750,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 111,
-    "stem": "图片中的人应当采取的正确行动是（）。 [IMG:image135.png]",
+    "stem": "图片中的人应当采取的正确行动是（）。 [IMG:image140.png]",
     "options": {
       "A": "远离",
       "B": "搬离",
@@ -1811,7 +1766,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 112,
-    "stem": "本衰变图说法正确的是（）。 [IMG:image136.png]",
+    "stem": "本衰变图说法正确的是（）。 [IMG:image141.png]",
     "options": {
       "A": "α 衰变",
       "B": "发出 α 粒子",
@@ -1827,7 +1782,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 113,
-    "stem": "图中剂量限值表述正确的是（）。 [IMG:image137.png]",
+    "stem": "图中剂量限值表述正确的是（）。 [IMG:image142.png]",
     "options": {
       "A": "职业人员照射剂量限值",
       "B": "公众剂量限值",
@@ -1843,7 +1798,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 114,
-    "stem": "关于辐射安全许可证说法正确的是（）。 [IMG:image138.jpeg]",
+    "stem": "关于辐射安全许可证说法正确的是（）。 [IMG:image143.jpeg]",
     "options": {
       "A": "有正本和副本",
       "B": "生态环境部门颁发",
@@ -1859,7 +1814,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 115,
-    "stem": "下图说法正确的是（）。 [IMG:image139.png]",
+    "stem": "下图说法正确的是（）。 [IMG:image144.png]",
     "options": {
       "A": "穿透力 α<β<γ",
       "B": "外照射危害 α<β<γ",
@@ -1875,7 +1830,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 116,
-    "stem": "见到图片中的无人看管的东西，错误的做法是（）。 [IMG:image140.jpeg]",
+    "stem": "见到图片中的无人看管的东西，错误的做法是（）。 [IMG:image145.jpeg]",
     "options": {
       "A": "远离",
       "B": "搬离",
@@ -1891,7 +1846,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 117,
-    "stem": "图中关于确定性效应表达的正确含义是（）。 [IMG:image141.jpeg]",
+    "stem": "图中关于确定性效应表达的正确含义是（）。 [IMG:image146.jpeg]",
     "options": {
       "A": "针对大剂量、大剂量率的急性照射",
       "B": "确定性效应有明确的阈值",
@@ -1907,7 +1862,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 118,
-    "stem": "图中关于随机性效应表达的正确含义是（）。 [IMG:image142.jpeg]",
+    "stem": "图中关于随机性效应表达的正确含义是（）。 [IMG:image147.jpeg]",
     "options": {
       "A": "针对小剂量、小剂量率的慢性照射",
       "B": "随机性效应不存在剂量阈值",
@@ -1923,7 +1878,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 119,
-    "stem": "电离辐射是指其携带的能量足以使物质原子或分子中的电子成为自由态，从而使这些原子或分子发生电离现象的辐射。下列属于电离辐射的是（） [IMG:image143.jpeg] [IMG:image144.jpeg]",
+    "stem": "电离辐射是指其携带的能量足以使物质原子或分子中的电子成为自由态，从而使这些原子或分子发生电离现象的辐射。下列属于电离辐射的是（）",
     "options": {
       "A": "氡气",
       "B": "核子秤",
@@ -1931,9 +1886,17 @@
       "D": "安检"
     },
     "option_images": {
+      "A": [
+        "image148.jpeg"
+      ],
       "B": [
-        "image145.jpeg",
-        "image146.jpeg"
+        "image149.jpeg"
+      ],
+      "C": [
+        "image150.jpeg"
+      ],
+      "D": [
+        "image151.jpeg"
       ]
     },
     "answer": "A,B,D"
@@ -1952,16 +1915,13 @@
     },
     "option_images": {
       "A": [
-        "image147.jpeg"
-      ],
-      "B": [
-        "image148.jpeg"
+        "image152.jpeg"
       ],
       "C": [
-        "image149.jpeg"
+        "image154.jpeg"
       ],
       "D": [
-        "image150.jpeg"
+        "image155.jpeg"
       ]
     },
     "answer": "A,B,C,D"
@@ -1980,16 +1940,16 @@
     },
     "option_images": {
       "A": [
-        "image151.jpeg"
+        "image156.jpeg"
       ],
       "B": [
-        "image152.jpeg"
+        "image157.jpeg"
       ],
       "C": [
-        "image153.png"
+        "image158.png"
       ],
       "D": [
-        "image154.jpeg"
+        "image159.jpeg"
       ]
     },
     "answer": "A,B,C"
@@ -2008,16 +1968,16 @@
     },
     "option_images": {
       "A": [
-        "image155.jpeg"
+        "image160.jpeg"
       ],
       "B": [
-        "image156.jpeg"
+        "image161.jpeg"
       ],
       "C": [
-        "image157.jpeg"
+        "image162.jpeg"
       ],
       "D": [
-        "image158.jpeg"
+        "image163.jpeg"
       ]
     },
     "answer": "C,D"
@@ -2027,7 +1987,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 123,
-    "stem": "下列探测器中常用于中子探测的有（）。 [IMG:image159.jpeg]",
+    "stem": "下列探测器中常用于中子探测的有（）。",
     "options": {
       "A": "硫化锌",
       "B": "BF3 正比计数器",
@@ -2036,13 +1996,16 @@
     },
     "option_images": {
       "A": [
-        "image160.jpeg"
+        "image164.jpeg"
       ],
       "B": [
-        "image161.jpeg"
+        "image165.jpeg"
       ],
       "C": [
-        "image162.jpeg"
+        "image166.jpeg"
+      ],
+      "D": [
+        "image167.jpeg"
       ]
     },
     "answer": "A,B,C,D"
@@ -2061,16 +2024,16 @@
     },
     "option_images": {
       "A": [
-        "image163.jpeg"
+        "image168.jpeg"
       ],
       "B": [
-        "image164.jpeg"
+        "image169.jpeg"
       ],
       "C": [
-        "image165.jpeg"
+        "image170.jpeg"
       ],
       "D": [
-        "image166.jpeg"
+        "image171.jpeg"
       ]
     },
     "answer": "A,B,C,D"
@@ -2089,16 +2052,16 @@
     },
     "option_images": {
       "A": [
-        "image167.jpeg"
+        "image172.jpeg"
       ],
       "B": [
-        "image168.jpeg"
+        "image173.jpeg"
       ],
       "C": [
-        "image169.png"
+        "image174.png"
       ],
       "D": [
-        "image170.jpeg"
+        "image175.jpeg"
       ]
     },
     "answer": "C,D"
@@ -2108,7 +2071,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 126,
-    "stem": "气体探测器收集的带电粒子数目与电压关系曲线如下图。下列描述正确的是（）。 [IMG:image171.png]",
+    "stem": "气体探测器收集的带电粒子数目与电压关系曲线如下图。下列描述正确的是（）。 [IMG:image176.png]",
     "options": {
       "A": "Ⅰ区内收集的离子对数目随收集电压而增加。",
       "B": "Ⅱ区内工作气体中产生的离子对被完全收集，因而在一定的电压范围内，收集离子对数目不随工作电压而变化。",
@@ -2127,18 +2090,21 @@
     "options": {
       "A": "手机",
       "B": "电脑",
-      "C": "微波"
+      "C": "微波",
+      "D": "广播"
     },
     "option_images": {
       "A": [
-        "image172.jpeg"
+        "image177.jpeg"
       ],
       "B": [
-        "image173.jpeg"
+        "image178.jpeg"
       ],
       "C": [
-        "image174.jpeg",
-        "image175.jpeg"
+        "image179.jpeg"
+      ],
+      "D": [
+        "image180.jpeg"
       ]
     },
     "answer": "A,B,C,D"
@@ -2157,16 +2123,16 @@
     },
     "option_images": {
       "A": [
-        "image176.png"
+        "image181.png"
       ],
       "B": [
-        "image177.png"
+        "image182.png"
       ],
       "C": [
-        "image178.png"
+        "image183.png"
       ],
       "D": [
-        "image179.png"
+        "image184.png"
       ]
     },
     "answer": "A,B,D"
@@ -2185,16 +2151,16 @@
     },
     "option_images": {
       "A": [
-        "image180.png"
+        "image185.png"
       ],
       "B": [
-        "image181.png"
+        "image186.png"
       ],
       "C": [
-        "image178.png"
+        "image183.png"
       ],
       "D": [
-        "image179.png"
+        "image184.png"
       ]
     },
     "answer": "A,B,C"
@@ -2204,7 +2170,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 130,
-    "stem": "如图所示 β 能谱，以下说法正确的是（）。 [IMG:image182.jpeg]",
+    "stem": "如图所示 β 能谱，以下说法正确的是（）。 [IMG:image187.jpeg]",
     "options": {
       "A": "β 射线的能量连续分布",
       "B": "有一个确定的最大能量值",
@@ -2228,16 +2194,16 @@
     },
     "option_images": {
       "A": [
-        "image183.jpeg"
+        "image188.jpeg"
       ],
       "B": [
-        "image184.jpeg"
+        "image189.jpeg"
       ],
       "C": [
-        "image185.jpeg"
+        "image190.jpeg"
       ],
       "D": [
-        "image186.jpeg"
+        "image191.jpeg"
       ]
     },
     "answer": "A,B,C,D"
@@ -2247,7 +2213,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 132,
-    "stem": "图中采取的外照射防护措施有哪些？（） [IMG:image187.jpeg]",
+    "stem": "图中采取的外照射防护措施有哪些？（） [IMG:image192.jpeg]",
     "options": {
       "A": "机械手操作",
       "B": "移动屏蔽",
@@ -2263,7 +2229,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 133,
-    "stem": "下图中医师采取的屏蔽措施有哪些？（） [IMG:image187.jpeg]",
+    "stem": "下图中医师采取的屏蔽措施有哪些？（） [IMG:image192.jpeg]",
     "options": {
       "A": "隔室操作",
       "B": "铅玻璃屏蔽",
@@ -2279,7 +2245,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 134,
-    "stem": "根据图片所示，外照射主要针对哪类射线？（） [IMG:image188.jpeg]",
+    "stem": "根据图片所示，外照射主要针对哪类射线？（） [IMG:image193.jpeg]",
     "options": {
       "A": "α 射线",
       "B": "β 射线",
@@ -2295,7 +2261,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 135,
-    "stem": "针对外照射，图中显示的防护措施包括。（） [IMG:image189.png]",
+    "stem": "针对外照射，图中显示的防护措施包括。（） [IMG:image194.png]",
     "options": {
       "A": "缩短照射时间",
       "B": "增加与源的距离",
@@ -2311,7 +2277,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 136,
-    "stem": "图为电离辐射标志，应设置在哪些地方？（） [IMG:image190.png]",
+    "stem": "图为电离辐射标志，应设置在哪些地方？（） [IMG:image195.png]",
     "options": {
       "A": "放射源",
       "B": "放射性同位素包装容器",
@@ -2327,7 +2293,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 137,
-    "stem": "图为电离辐射警告标志，应设置在哪些地方？（） [IMG:image191.png]",
+    "stem": "图为电离辐射警告标志，应设置在哪些地方？（） [IMG:image196.png]",
     "options": {
       "A": "放射性同位素贮存场所",
       "B": "放射性工作场所出入口",
@@ -2343,7 +2309,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 138,
-    "stem": "本图采用的是何种外照射防护方法？（） [IMG:image192.png]",
+    "stem": "本图采用的是何种外照射防护方法？（） [IMG:image197.png]",
     "options": {
       "A": "时间防护",
       "B": "距离防护",
@@ -2359,7 +2325,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 139,
-    "stem": "核素符号图，表述正确的是：（） [IMG:image193.jpeg]",
+    "stem": "核素符号图，表述正确的是：（） [IMG:image198.jpeg]",
     "options": {
       "A": "X 表示元素符号",
       "B": "A 表示质量数",
@@ -2375,7 +2341,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 140,
-    "stem": "警戒区内的防护行动是事故响应中需要采取的防护措施（应急警戒区示意图如下），以下说法正确的是（）。 [IMG:image194.png]",
+    "stem": "警戒区内的防护行动是事故响应中需要采取的防护措施（应急警戒区示意图如下），以下说法正确的是（）。 [IMG:image199.png]",
     "options": {
       "A": "出入内警戒区只能通过安全通道。",
       "B": "外部警戒区只允许公安、消防队员、救护服务和其他有资质的工作人员进入。",
@@ -2390,7 +2356,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 141,
-    "stem": "如图所示，对于操作人员，可用（）等方法将操作人员围封起来，防止放射性物质进入人体。 [IMG:image195.jpeg]",
+    "stem": "如图所示，对于操作人员，可用（）等方法将操作人员围封起来，防止放射性物质进入人体。 [IMG:image200.jpeg]",
     "options": {
       "A": "工作服",
       "B": "鞋帽",
@@ -2414,16 +2380,16 @@
     },
     "option_images": {
       "A": [
-        "image196.jpeg"
+        "image201.jpeg"
       ],
       "B": [
-        "image197.jpeg"
+        "image202.jpeg"
       ],
       "C": [
-        "image198.jpeg"
+        "image203.jpeg"
       ],
       "D": [
-        "image199.jpeg"
+        "image204.jpeg"
       ]
     },
     "answer": "A,B,C,D"
@@ -2442,16 +2408,16 @@
     },
     "option_images": {
       "A": [
-        "image200.png"
+        "image205.png"
       ],
       "B": [
-        "image201.jpeg"
+        "image206.jpeg"
       ],
       "C": [
-        "image202.png"
+        "image207.png"
       ],
       "D": [
-        "image203.jpeg"
+        "image208.jpeg"
       ]
     },
     "answer": "B,C,D"
@@ -2470,16 +2436,16 @@
     },
     "option_images": {
       "A": [
-        "image204.png"
+        "image209.png"
       ],
       "B": [
-        "image205.jpeg"
+        "image210.jpeg"
       ],
       "C": [
-        "image206.jpeg"
+        "image211.jpeg"
       ],
       "D": [
-        "image207.jpeg"
+        "image212.jpeg"
       ]
     },
     "answer": "A,B,C,D"
@@ -2498,16 +2464,16 @@
     },
     "option_images": {
       "A": [
-        "image208.jpeg"
+        "image213.jpeg"
       ],
       "B": [
-        "image209.jpeg"
+        "image214.jpeg"
       ],
       "C": [
-        "image210.jpeg"
+        "image215.jpeg"
       ],
       "D": [
-        "image211.jpeg"
+        "image216.jpeg"
       ]
     },
     "answer": "A,B,C,D"
@@ -2517,7 +2483,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 146,
-    "stem": "工业探伤是无损检测的重要手段，射线的工业探伤装置如下图所示。可在不接触、不损坏被检物体的情况下，对（）进行精确的检测。 [IMG:image212.jpeg]",
+    "stem": "工业探伤是无损检测的重要手段，射线的工业探伤装置如下图所示。可在不接触、不损坏被检物体的情况下，对（）进行精确的检测。 [IMG:image217.jpeg]",
     "options": {
       "A": "压力容器",
       "B": "管道焊缝",
@@ -2532,7 +2498,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 147,
-    "stem": "辐照食品方面的应用。目前辐照已广泛应用于食品的保鲜和杀菌， 其优点是（）。 [IMG:image213.jpeg]",
+    "stem": "辐照食品方面的应用。目前辐照已广泛应用于食品的保鲜和杀菌， 其优点是（）。 [IMG:image218.jpeg]",
     "options": {
       "A": "消灭微生物",
       "B": "防止病虫危害",
@@ -2547,7 +2513,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 148,
-    "stem": "利用放射性核素制成原子能电池，如图所示，它具有体积小，能量高等特点，可用于（）。 9l [IMG:image214.jpeg]",
+    "stem": "利用放射性核素制成原子能电池，如图所示，它具有体积小，能量高等特点，可用于（）。",
     "options": {
       "A": "人造卫星",
       "B": "宇宙飞船",
@@ -2562,7 +2528,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 149,
-    "stem": "中子入射到靶原子核上，被靶核俘获，形成一个新核（复合核），过程如下图所示。以下说法正确的是（）。 [IMG:image215.jpeg]",
+    "stem": "中子入射到靶原子核上，被靶核俘获，形成一个新核（复合核），过程如下图所示。以下说法正确的是（）。 [IMG:image220.jpeg]",
     "options": {
       "A": "复合核比原来的靶核原子质量数增加 1。",
       "B": "复合核处于激发态，是不稳定的。",
@@ -2586,16 +2552,16 @@
     },
     "option_images": {
       "A": [
-        "image216.jpeg"
+        "image221.jpeg"
       ],
       "B": [
-        "image217.jpeg"
+        "image222.jpeg"
       ],
       "C": [
-        "image218.jpeg"
+        "image223.jpeg"
       ],
       "D": [
-        "image219.jpeg"
+        "image224.jpeg"
       ]
     },
     "answer": "A,C,D"
@@ -2614,16 +2580,13 @@
     },
     "option_images": {
       "A": [
-        "image220.jpeg"
-      ],
-      "B": [
-        "image221.jpeg"
+        "image225.jpeg"
       ],
       "C": [
-        "image222.jpeg"
+        "image227.jpeg"
       ],
       "D": [
-        "image223.png"
+        "image228.png"
       ]
     },
     "answer": "A,B"
@@ -2633,7 +2596,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 152,
-    "stem": "为了监控源的工作状态和工作场所的辐射水平、满足监管上的需要，可以在工作场所合适位置安装在线监测系统，以下说法正确的是（）。 [IMG:image224.png]",
+    "stem": "为了监控源的工作状态和工作场所的辐射水平、满足监管上的需要，可以在工作场所合适位置安装在线监测系统，以下说法正确的是（）。 [IMG:image229.png]",
     "options": {
       "A": "要求监测系统可靠性好，操作方便，响应时间快。",
       "B": "具有超阈值报警（声光报警）、与防护门联锁、测量数据存储等功能。",
@@ -2657,16 +2620,16 @@
     },
     "option_images": {
       "A": [
-        "image225.jpeg"
+        "image230.jpeg"
       ],
       "B": [
-        "image226.jpeg"
+        "image231.jpeg"
       ],
       "C": [
-        "image227.jpeg"
+        "image232.jpeg"
       ],
       "D": [
-        "image228.jpeg"
+        "image233.jpeg"
       ]
     },
     "answer": "A,B,C,D"
@@ -2676,7 +2639,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 154,
-    "stem": "体表污染监测顺序如下图所示，体表污染监测时应（）。 [IMG:image229.png]",
+    "stem": "体表污染监测顺序如下图所示，体表污染监测时应（）。 [IMG:image234.png]",
     "options": {
       "A": "重点关注眼、鼻、口等部位是否有污染。",
       "B": "如发现污染，用湿棉花擦拭取样。",
@@ -2691,7 +2654,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 155,
-    "stem": "X 射线安检仪是采用 X 射线扫描成像技术对行李进行安全检测的电子设备，属于（）。 [IMG:image230.png]",
+    "stem": "X 射线安检仪是采用 X 射线扫描成像技术对行李进行安全检测的电子设备，属于（）。 [IMG:image235.png]",
     "options": {
       "A": "电离辐射",
       "B": "非电离辐射",
@@ -2706,7 +2669,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 156,
-    "stem": "核测井用探测器在井中连续测量由天然放射性核素发射的或由人工激发产生的核射线，以计数率或标准化单位记录射线强度随深度的变化，属于（）。 [IMG:image231.png]",
+    "stem": "核测井用探测器在井中连续测量由天然放射性核素发射的或由人工激发产生的核射线，以计数率或标准化单位记录射线强度随深度的变化，属于（）。 [IMG:image236.png]",
     "options": {
       "A": "电离辐射",
       "B": "非电离辐射",
@@ -2721,7 +2684,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 157,
-    "stem": "料位计是指对容器中固体物料高度的变化进行实时检测的仪表。核辐射料位计储仓下侧装有 γ 射线辐射源，储仓上侧装有 γ 射线接收器，γ 射线穿过料层后的强度不同，接收器检测出射入的 γ 射线强度并通过显示仪表显示出料位高度。属于（）。 [IMG:image232.png]",
+    "stem": "料位计是指对容器中固体物料高度的变化进行实时检测的仪表。核辐射料位计储仓下侧装有 γ 射线辐射源，储仓上侧装有 γ 射线接收器，γ 射线穿过料层后的强度不同，接收器检测出射入的 γ 射线强度并通过显示仪表显示出料位高度。属于（）。 [IMG:image237.png]",
     "options": {
       "A": "电离辐射",
       "B": "非电离辐射",
@@ -2736,7 +2699,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 158,
-    "stem": "伽玛刀是根据立体几何定向原理， 将颅内的正常组织或病变组织选择性地确定为靶点，使用钴-60 产生的伽玛射线进行一次性大剂量地聚焦照射，使之产生局灶性的坏死或功能改变而达到治疗疾病的目的。属于（）。 [IMG:image233.png]",
+    "stem": "伽玛刀是根据立体几何定向原理， 将颅内的正常组织或病变组织选择性地确定为靶点，使用钴-60 产生的伽玛射线进行一次性大剂量地聚焦照射，使之产生局灶性的坏死或功能改变而达到治疗疾病的目的。属于（）。 [IMG:image238.png]",
     "options": {
       "A": "电离辐射",
       "B": "非电离辐射",
@@ -2751,7 +2714,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 159,
-    "stem": "CT 检查是现代一种较先进的医学影像检查技术，它属于（）。 [IMG:image234.jpeg]",
+    "stem": "CT 检查是现代一种较先进的医学影像检查技术，它属于（）。 [IMG:image239.jpeg]",
     "options": {
       "A": "电离辐射",
       "B": "非电离辐射",
@@ -2766,7 +2729,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 160,
-    "stem": "微波是一种电磁波。微波炉就是一种用微波加热食品的现代化烹调灶具，它属于（）。 [IMG:image235.jpeg]",
+    "stem": "微波是一种电磁波。微波炉就是一种用微波加热食品的现代化烹调灶具，它属于（）。 [IMG:image240.jpeg]",
     "options": {
       "A": "电离辐射",
       "B": "非电离辐射",
@@ -2781,7 +2744,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 161,
-    "stem": "如图所示，地质结构、土壤、建材以及室内装饰材料等都会产生放射性氡污染，那么氡气属于（）。 [IMG:image236.jpeg]",
+    "stem": "如图所示，地质结构、土壤、建材以及室内装饰材料等都会产生放射性氡污染，那么氡气属于（）。 [IMG:image241.jpeg]",
     "options": {
       "A": "电离辐射",
       "B": "非电离辐射",
@@ -2796,20 +2759,22 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 162,
-    "stem": "电离辐射广泛应用于工业，包括（）。 [IMG:image237.png]",
+    "stem": "电离辐射广泛应用于工业，包括（）。",
     "options": {
       "A": "电线辐照加工",
-      "B": "探伤",
+      "B": "",
       "C": "核子仪",
       "D": "测井"
     },
     "option_images": {
-      "B": [
-        "image238.png",
-        "image239.jpeg"
+      "A": [
+        "image242.png"
       ],
       "C": [
-        "image240.png"
+        "image244.jpeg"
+      ],
+      "D": [
+        "image245.png"
       ]
     },
     "answer": "A,B,C,D"
@@ -2819,7 +2784,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 163,
-    "stem": "以下可以作为探测核爆炸的信息源的有（）。 [IMG:image241.png]",
+    "stem": "以下可以作为探测核爆炸的信息源的有（）。 [IMG:image246.png]",
     "options": {
       "A": "冲击波",
       "B": "光辐射",
@@ -2834,7 +2799,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 164,
-    "stem": "光电倍增管探测器原理如下图所示。关于闪烁探测器工作原理描述正确的是（）。 [IMG:image242.jpeg]",
+    "stem": "光电倍增管探测器原理如下图所示。关于闪烁探测器工作原理描述正确的是（）。 [IMG:image247.jpeg]",
     "options": {
       "A": "闪烁光的一部分通过光导被收集到光电倍增管的光阴极上。",
       "B": "光阴极吸收光子后，发射出光电子。",
@@ -2849,7 +2814,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 165,
-    "stem": "1896 年，Becquerel 在铀矿物中发现的射线中，在磁场中不偏转的是（）。 [IMG:image243.png]",
+    "stem": "1896 年，Becquerel 在铀矿物中发现的射线中，在磁场中不偏转的是（）。 [IMG:image248.png]",
     "options": {
       "A": "α 射线",
       "B": "β 射线",
@@ -2873,16 +2838,16 @@
     },
     "option_images": {
       "A": [
-        "image244.jpeg"
+        "image249.jpeg"
       ],
       "B": [
-        "image245.jpeg"
+        "image250.jpeg"
       ],
       "C": [
-        "image246.jpeg"
+        "image251.jpeg"
       ],
       "D": [
-        "image247.jpeg"
+        "image252.jpeg"
       ]
     },
     "answer": "A,B,C,D"
@@ -2892,7 +2857,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 167,
-    "stem": "使初始 X 射线强度降到一半的屏蔽材料的厚度为半值层（HVL），使初始 X 射线强度降到 1/10 的屏蔽定材料的厚度为十分之一层（TVL），如下图所示中其说法正确的是（）。 [IMG:image248.png]",
+    "stem": "使初始 X 射线强度降到一半的屏蔽材料的厚度为半值层（HVL），使初始 X 射线强度降到 1/10 的屏蔽定材料的厚度为十分之一层（TVL），如下图所示中其说法正确的是（）。 [IMG:image253.png]",
     "options": {
       "A": "蓝色曲线所代表的屏蔽材料对射线的阻止本领更强。",
       "B": "使射线强度降低到一半时，蓝色曲线所代表的屏蔽材料所用的厚度更大。",
@@ -2907,7 +2872,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 168,
-    "stem": "电热器是将电能转换成热能的设备，作为热源，它属于（）。 [IMG:image249.png]",
+    "stem": "电热器是将电能转换成热能的设备，作为热源，它属于（）。 [IMG:image254.png]",
     "options": {
       "A": "电离辐射",
       "B": "非电离辐射",
@@ -2922,7 +2887,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 169,
-    "stem": "基站是移动设备接入互联网的接口设备，是指在一定的无线电覆盖区中，通过移动通信交换中心，与移动电话终端之间进行信息传递的无线电收发信电台，属于（）。 [IMG:image250.png]",
+    "stem": "基站是移动设备接入互联网的接口设备，是指在一定的无线电覆盖区中，通过移动通信交换中心，与移动电话终端之间进行信息传递的无线电收发信电台，属于（）。 [IMG:image255.png]",
     "options": {
       "A": "电离辐射",
       "B": "非电离辐射",
@@ -2937,7 +2902,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 170,
-    "stem": "收音机是用电能将电波信号转换并能收听广播电台发射音频信号的一种机器，它属于（）。 [IMG:image251.png]",
+    "stem": "收音机是用电能将电波信号转换并能收听广播电台发射音频信号的一种机器，它属于（）。 [IMG:image256.png]",
     "options": {
       "A": "电离辐射",
       "B": "非电离辐射",
@@ -2952,7 +2917,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 171,
-    "stem": "电弧焊是指以电弧作为热源，利用空气放电的物理现象，将电能转换为焊接所需的热能和机械能，从而达到连接金属的目的。它属于（）。 [IMG:image252.png]",
+    "stem": "电弧焊是指以电弧作为热源，利用空气放电的物理现象，将电能转换为焊接所需的热能和机械能，从而达到连接金属的目的。它属于（）。 [IMG:image257.png]",
     "options": {
       "A": "电离辐射",
       "B": "非电离辐射",
@@ -2967,7 +2932,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 172,
-    "stem": "高压线通常指的是输送 10kV（含 10kV）以上电压的输电线路。它属于（）。 [IMG:image253.jpeg]",
+    "stem": "高压线通常指的是输送 10kV（含 10kV）以上电压的输电线路。它属于（）。 [IMG:image258.jpeg]",
     "options": {
       "A": "电离辐射",
       "B": "非电离辐射",
@@ -2982,7 +2947,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 173,
-    "stem": "人类在地球一直受到天然辐射源的照射，关于下图中天然辐射的来源说法正确的是（）。 [IMG:image254.png]",
+    "stem": "人类在地球一直受到天然辐射源的照射，关于下图中天然辐射的来源说法正确的是（）。 [IMG:image259.png]",
     "options": {
       "A": "天然辐射源主要来自宇宙射线、宇生和原生放射性核素。",
       "B": "宇宙射线来自太阳和星际空间。",
@@ -2997,7 +2962,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 174,
-    "stem": "如图所示照射方式可分为外照射、内照射和混合照射， 以下说法中错误的是（）。 [IMG:image255.jpeg]",
+    "stem": "如图所示照射方式可分为外照射、内照射和混合照射， 以下说法中错误的是（）。 [IMG:image260.jpeg]",
     "options": {
       "A": "外照射可以是单向照射或多向照射，后者的效应大于前者。",
       "B": "对于外照射的危害，n<γ、X>β>α。",
@@ -3012,7 +2977,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 175,
-    "stem": "在短时大剂量辐射的医疗反应中所接受的剂量与相应的医疗反应描述不相符的是（）。 [IMG:image256.jpeg]",
+    "stem": "在短时大剂量辐射的医疗反应中所接受的剂量与相应的医疗反应描述不相符的是（）。 [IMG:image261.jpeg]",
     "options": {
       "A": "死亡",
       "B": "腹泻",
@@ -3027,7 +2992,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 176,
-    "stem": "下图是电离辐射生物效应中的确定性效应，关于确定性效应的观点错误的是（）。 [IMG:image257.jpeg]",
+    "stem": "下图是电离辐射生物效应中的确定性效应，关于确定性效应的观点错误的是（）。 [IMG:image262.jpeg]",
     "options": {
       "A": "发生严重程度和机率都随剂量变化而变化",
       "B": "即使剂量很小，也有可能发生效应",
@@ -3051,16 +3016,16 @@
     },
     "option_images": {
       "A": [
-        "image258.jpeg"
+        "image263.jpeg"
       ],
       "B": [
-        "image259.jpeg"
+        "image264.jpeg"
       ],
       "C": [
-        "image260.jpeg"
+        "image265.jpeg"
       ],
       "D": [
-        "image261.jpeg"
+        "image266.jpeg"
       ]
     },
     "answer": "A,B"
@@ -3079,16 +3044,16 @@
     },
     "option_images": {
       "A": [
-        "image262.jpeg"
+        "image267.jpeg"
       ],
       "B": [
-        "image263.jpeg"
+        "image268.jpeg"
       ],
       "C": [
-        "image264.jpeg"
+        "image269.jpeg"
       ],
       "D": [
-        "image265.jpeg"
+        "image270.jpeg"
       ]
     },
     "answer": "A,B,C,D"
@@ -3107,16 +3072,16 @@
     },
     "option_images": {
       "A": [
-        "image266.jpeg"
+        "image271.jpeg"
       ],
       "B": [
-        "image267.jpeg"
+        "image272.jpeg"
       ],
       "C": [
-        "image268.jpeg"
+        "image273.jpeg"
       ],
       "D": [
-        "image269.jpeg"
+        "image274.jpeg"
       ]
     },
     "answer": "A,B,C"
@@ -3135,16 +3100,16 @@
     },
     "option_images": {
       "A": [
-        "image270.jpeg"
+        "image275.jpeg"
       ],
       "B": [
-        "image271.jpeg"
+        "image276.jpeg"
       ],
       "C": [
-        "image272.jpeg"
+        "image277.jpeg"
       ],
       "D": [
-        "image273.jpeg"
+        "image278.jpeg"
       ]
     },
     "answer": "A,B,C,D"
@@ -3163,16 +3128,16 @@
     },
     "option_images": {
       "A": [
-        "image274.jpeg"
+        "image279.jpeg"
       ],
       "B": [
-        "image275.png"
+        "image280.png"
       ],
       "C": [
-        "image276.jpeg"
+        "image281.jpeg"
       ],
       "D": [
-        "image277.png"
+        "image282.png"
       ]
     },
     "answer": "A,B,C"
@@ -3182,7 +3147,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 182,
-    "stem": "下图为胚胎发育不同阶段，受 2Gy 剂量的 X 射线照射造成死胎和畸形的发生率的关系图，以下说法中正确的是（）。 [IMG:image278.jpeg] [IMG:image279.jpeg]",
+    "stem": "下图为胚胎发育不同阶段，受 2Gy 剂量的 X 射线照射造成死胎和畸形的发生率的关系图，以下说法中正确的是（）。 [IMG:image283.jpeg] [IMG:image284.jpeg]",
     "options": {
       "A": "随着个体发育过程的推进，其对辐射的敏感性逐渐降低。",
       "B": "随着个体发育过程的推进，其对辐射的敏感性逐渐增高。",
@@ -3197,21 +3162,14 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 183,
-    "stem": "辐射与我们息息相关。我们生活中的（）都有一定的放射性。 [IMG:image280.jpeg]",
+    "stem": "辐射与我们息息相关。我们生活中的（）都有一定的放射性。",
     "options": {
       "A": "",
       "B": "",
       "C": "",
       "D": ""
     },
-    "option_images": {
-      "A": [
-        "image281.jpeg"
-      ],
-      "C": [
-        "image282.jpeg"
-      ]
-    },
+    "option_images": {},
     "answer": "A,B,C,D"
   },
   {
@@ -3226,20 +3184,7 @@
       "C": "",
       "D": ""
     },
-    "option_images": {
-      "A": [
-        "image283.jpeg"
-      ],
-      "B": [
-        "image284.jpeg"
-      ],
-      "C": [
-        "image285.jpeg"
-      ],
-      "D": [
-        "image286.jpeg"
-      ]
-    },
+    "option_images": {},
     "answer": "A,B,C,D"
   },
   {
@@ -3254,20 +3199,7 @@
       "C": "",
       "D": ""
     },
-    "option_images": {
-      "A": [
-        "image283.jpeg"
-      ],
-      "B": [
-        "image287.jpeg"
-      ],
-      "C": [
-        "image285.jpeg"
-      ],
-      "D": [
-        "image288.jpeg"
-      ]
-    },
+    "option_images": {},
     "answer": "A,B,C,D"
   },
   {
@@ -3277,25 +3209,12 @@
     "num": 186,
     "stem": "辐射与我们息息相关。我们生活中的（）都有一定的放射性。",
     "options": {
-      "A": "l20",
+      "A": "",
       "B": "",
       "C": "",
       "D": ""
     },
-    "option_images": {
-      "A": [
-        "image283.jpeg"
-      ],
-      "B": [
-        "image289.jpeg"
-      ],
-      "C": [
-        "image290.jpeg"
-      ],
-      "D": [
-        "image291.jpeg"
-      ]
-    },
+    "option_images": {},
     "answer": "A,B,C,D"
   },
   {
@@ -3303,7 +3222,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 187,
-    "stem": "γ 射线强度随通过介质层厚度增加而减小，服从指数衰减规律。下图中是相同入射能量下两种不同物质的衰减曲线，以下说法错误的是：（）。 [IMG:image292.png]",
+    "stem": "γ 射线强度随通过介质层厚度增加而减小，服从指数衰减规律。下图中是相同入射能量下两种不同物质的衰减曲线，以下说法错误的是：（）。 [IMG:image298.png]",
     "options": {
       "A": "红色曲线所代表的物质的原子序数较大。",
       "B": "绿色曲线所代表的物质的原子序数较大。",
@@ -3318,7 +3237,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 188,
-    "stem": "γ 射线强度随通过介质层厚度增加而减小，服从指数衰减规律。下图中是相同入射能量下两种不同物质的衰减曲线，以下说法错误的是：（）。 [IMG:image293.png]",
+    "stem": "γ 射线强度随通过介质层厚度增加而减小，服从指数衰减规律。下图中是相同入射能量下两种不同物质的衰减曲线，以下说法错误的是：（）。 [IMG:image299.png]",
     "options": {
       "A": "红色曲线所代表的物质的衰减因子较大。",
       "B": "绿色曲线所代表的物质的衰减因子较大。",
@@ -3333,7 +3252,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 189,
-    "stem": "γ 射线强度随通过介质层厚度增加而减小，服从指数衰减规律。下图中是相同入射能量下两种不同物质的衰减曲线，以下说法正确的是：（）。 [IMG:image294.png]",
+    "stem": "γ 射线强度随通过介质层厚度增加而减小，服从指数衰减规律。下图中是相同入射能量下两种不同物质的衰减曲线，以下说法正确的是：（）。 [IMG:image300.png]",
     "options": {
       "A": "红色曲线所代表的物质的原子序数较大。",
       "B": "绿色曲线所代表的物质的原子序数较大。",
@@ -3348,7 +3267,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 190,
-    "stem": "1896 年，Becquerel 在铀矿物中发现的射线中，在磁场中偏转的是（）。 [IMG:image295.png]",
+    "stem": "1896 年，Becquerel 在铀矿物中发现的射线中，在磁场中偏转的是（）。 [IMG:image301.png]",
     "options": {
       "A": "α 射线",
       "B": "β 射线",
@@ -3370,20 +3289,7 @@
       "C": "",
       "D": ""
     },
-    "option_images": {
-      "A": [
-        "image296.jpeg"
-      ],
-      "B": [
-        "image297.jpeg"
-      ],
-      "C": [
-        "image298.jpeg"
-      ],
-      "D": [
-        "image299.jpeg"
-      ]
-    },
+    "option_images": {},
     "answer": "A,C"
   },
   {
@@ -3391,21 +3297,14 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 192,
-    "stem": "下列关于原子的模型，正确的是（）。 [IMG:image296.jpeg]",
+    "stem": "下列关于原子的模型，正确的是（）。",
     "options": {
       "A": "",
       "B": "",
       "C": "",
       "D": ""
     },
-    "option_images": {
-      "A": [
-        "image297.jpeg"
-      ],
-      "C": [
-        "image299.jpeg"
-      ]
-    },
+    "option_images": {},
     "answer": "B,D"
   },
   {
@@ -3413,7 +3312,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 193,
-    "stem": "在如下图所示的衰变纲图中，属于 β 衰变的是（）。 [IMG:image300.png]",
+    "stem": "在如下图所示的衰变纲图中，属于 β 衰变的是（）。 [IMG:image307.png]",
     "options": {
       "A": "a",
       "B": "b",
@@ -3428,7 +3327,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 194,
-    "stem": "在如下图所示的衰变纲图中，属于 γ 衰变的有（）。 [IMG:image301.png]",
+    "stem": "在如下图所示的衰变纲图中，属于 γ 衰变的有（）。 [IMG:image308.png]",
     "options": {
       "A": "a",
       "B": "b",
@@ -3452,16 +3351,16 @@
     },
     "option_images": {
       "A": [
-        "image302.png"
+        "image309.png"
       ],
       "B": [
-        "image303.png"
+        "image310.png"
       ],
       "C": [
-        "image304.png"
+        "image311.png"
       ],
       "D": [
-        "image305.png"
+        "image312.png"
       ]
     },
     "answer": "A,B,C,D"
@@ -3480,16 +3379,16 @@
     },
     "option_images": {
       "A": [
-        "image306.png"
+        "image313.png"
       ],
       "B": [
-        "image307.png"
+        "image314.png"
       ],
       "C": [
-        "image308.png"
+        "image315.png"
       ],
       "D": [
-        "image309.png"
+        "image316.png"
       ]
     },
     "answer": "A,B,C"
@@ -3508,16 +3407,16 @@
     },
     "option_images": {
       "A": [
-        "image310.png"
+        "image317.png"
       ],
       "B": [
-        "image311.png"
+        "image318.png"
       ],
       "C": [
-        "image312.png"
+        "image319.png"
       ],
       "D": [
-        "image313.png"
+        "image320.png"
       ]
     },
     "answer": "A,B,C"
@@ -3536,16 +3435,16 @@
     },
     "option_images": {
       "A": [
-        "image314.png"
+        "image321.png"
       ],
       "B": [
-        "image315.png"
+        "image322.png"
       ],
       "C": [
-        "image312.png"
+        "image319.png"
       ],
       "D": [
-        "image179.png"
+        "image184.png"
       ]
     },
     "answer": "A,B,D"
@@ -3564,16 +3463,16 @@
     },
     "option_images": {
       "A": [
-        "image310.png"
+        "image317.png"
       ],
       "B": [
-        "image311.png"
+        "image318.png"
       ],
       "C": [
-        "image312.png"
+        "image319.png"
       ],
       "D": [
-        "image315.png"
+        "image322.png"
       ]
     },
     "answer": "A,B,C"
@@ -3592,16 +3491,16 @@
     },
     "option_images": {
       "A": [
-        "image310.png"
+        "image317.png"
       ],
       "B": [
-        "image315.png"
+        "image322.png"
       ],
       "C": [
-        "image311.png"
+        "image318.png"
       ],
       "D": [
-        "image316.png"
+        "image323.png"
       ]
     },
     "answer": "B,D"
@@ -3620,16 +3519,16 @@
     },
     "option_images": {
       "A": [
-        "image312.png"
+        "image319.png"
       ],
       "B": [
-        "image313.png"
+        "image320.png"
       ],
       "C": [
-        "image311.png"
+        "image318.png"
       ],
       "D": [
-        "image179.png"
+        "image184.png"
       ]
     },
     "answer": "A,C"
@@ -3646,20 +3545,7 @@
       "C": "",
       "D": ""
     },
-    "option_images": {
-      "A": [
-        "image317.png"
-      ],
-      "B": [
-        "image318.png"
-      ],
-      "C": [
-        "image319.png"
-      ],
-      "D": [
-        "image320.png"
-      ]
-    },
+    "option_images": {},
     "answer": "A,C"
   },
   {
@@ -3667,7 +3553,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 203,
-    "stem": "非电离辐射，由于辐射能量低，不能从原子、分子或其他束缚状态放出电子，包括（）。 [IMG:image321.png]",
+    "stem": "非电离辐射，由于辐射能量低，不能从原子、分子或其他束缚状态放出电子，包括（）。 [IMG:image328.png]",
     "options": {
       "A": "紫外线",
       "B": "热辐射",
@@ -3683,7 +3569,7 @@
     "part": "电离辐射安全与防护基础",
     "type": "multiple",
     "num": 204,
-    "stem": "以波的形式传播能量的被称为电磁辐射，波长越短，频率越高，携带的能量也越大。在以下辐射波谱图中，属于电离辐射的有（）。 [IMG:image321.png]",
+    "stem": "以波的形式传播能量的被称为电磁辐射，波长越短，频率越高，携带的能量也越大。在以下辐射波谱图中，属于电离辐射的有（）。 [IMG:image328.png]",
     "options": {
       "A": "γ 射线",
       "B": "X 光",
